@@ -3,8 +3,6 @@
 .idea/
 /logs/
 /v-generator/
-pom.xml
-*/pom.xml
 
 /*.iml
 /target/
