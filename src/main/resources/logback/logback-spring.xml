@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="6000">
+    <springProperty scope="context" name="logName" source="spring.application.name" defaultValue="localhost.log"/>
+    <property name="LOG_HOME" value="logs/${logName}/" />
+    <property name="APP_NAME" value="logs/${logName}.log" />
+
+    <!-- 控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <!--默认就是 PatternLayoutEncoder -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%highlight([%-5level]) %d{MM-dd-yyyy HH:mm:ss.SSS} [%thread] %-16.64logger{64} (%line\)=> %highlight(%n%msg%n)</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!-- 根据时间和单文件大小来制定滚动策略 -->
+    <appender name="sizeTimeRollingFile"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${APP_NAME}</file>
+        <!--<File>logs/test.log</File>-->
+
+        <!-- 每日一更，讲每天的日志按月份划分存储在不同的路径下 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/history/%d{MM-yyyy,aux}/%d{MM-dd-yyyy}-%i.log.gz</fileNamePattern>
+            <!-- 每个文件最大存储量 -->
+            <maxFileSize>80MB</maxFileSize>
+            <!-- 可选节点，声明归档日志最大保留时间，这里根据日期，则只保留60天 -->
+            <maxHistory>60</maxHistory>
+            <!-- 可选节点，归档日志的最大存储量 -->
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%-5level] %d{MM-dd-yyyy HH:mm:ss.SSS} [%thread] %-16.64logger{64} -(%line\)--> %n%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- addtivity: 是否向上级loger传递打印信息 -->
+    <logger name="com.tbc.mini.mapper" level="debug" additivity="true" />
+    <!--<logger name="org.springframework.jdbc" level="debug" additivity="true" />-->
+
+    <root level="info">
+        <appender-ref ref="sizeTimeRollingFile"/>
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>
