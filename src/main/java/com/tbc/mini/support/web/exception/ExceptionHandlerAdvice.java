@@ -1,10 +1,12 @@
 package com.tbc.mini.support.web.exception;
 
+import com.tbc.mini.common.exception.ServiceException;
 import com.tbc.mini.support.entity.ServerResponse;
 import com.tbc.mini.support.enums.BaseResponseCode;
 import com.tbc.mini.common.exception.TokenErrorException;
 import com.tbc.mini.common.exception.TokenNullException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,7 +29,6 @@ import java.rmi.ServerException;
 @ControllerAdvice
 @Slf4j
 public class ExceptionHandlerAdvice {
-
 
     /**
      * 拦截500异常，空指针异常
@@ -60,9 +61,12 @@ public class ExceptionHandlerAdvice {
      * @param ex
      * @return
      */
-    @ExceptionHandler(value = ServerException.class)
+    @ExceptionHandler(value = ServiceException.class)
     @ResponseBody
-    public Object serviceException(ServerException ex) {
+    public Object serviceException(ServiceException ex) {
+        if (null != ex.getCode() && StringUtils.isNotBlank(ex.getMessage())) {
+            return ServerResponse.createByErrorCodeMessage(ex.getCode(), ex.getMessage());
+        }
         return ServerResponse.createByErrorMessage(ex.getMessage());
     }
 
@@ -103,6 +107,7 @@ public class ExceptionHandlerAdvice {
     public Object methodNotSupported(Exception ex) {
         return ServerResponse.createByErrorCodeMessage(BaseResponseCode.REQUEST_TYPE_ERROR);
     }
+
 
     /**
      * @param ex

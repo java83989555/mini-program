@@ -32,6 +32,7 @@ public class LoginController extends BaseController {
             //todo 验证账号密码
             List<ZaUser> zaUsers = zaUserService.selectByExample(new ZaUserExample());
 
+
             String token = JwtFactory.generateUserToken("111");
             response.setHeader("token", token);
             return ServerResponse.createBySuccess(zaUsers);
@@ -39,6 +40,5 @@ public class LoginController extends BaseController {
             return super.errorParsing(e);
         }
     }
-
 
 }

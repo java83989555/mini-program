@@ -28,6 +28,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/faced/user/**")
                 .excludePathPatterns(Arrays.asList("/faced/user/login"));
 
+
+
     }
 
     @Override

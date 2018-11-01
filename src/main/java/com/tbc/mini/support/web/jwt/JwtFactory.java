@@ -12,7 +12,6 @@ import java.util.Date;
  */
 
 public class JwtFactory {
-
     private static final String BASE_64KEY = "Y24uaXRjYXN0LmFwaXM=";
 
     public static final Long ONE_DAY = 1000 * 60 * 60 * 24L;
@@ -24,7 +23,6 @@ public class JwtFactory {
      * @return
      */
     public static String generateUserToken(String userId) {
-
         return Jwts.builder().
                 //该JWT所面向的用户
                         setSubject(userId).
