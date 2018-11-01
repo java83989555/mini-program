@@ -19,7 +19,7 @@ public class AdminUserController extends BaseController {
     @GetMapping(value = "test")
     public ServerResponse test(String name) {
         try {
-
+            String username = name;
             return ServerResponse.createBySuccess();
         } catch (Exception e) {
             return super.errorParsing(e);
