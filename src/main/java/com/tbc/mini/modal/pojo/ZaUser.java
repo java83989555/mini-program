@@ -86,7 +86,7 @@ public class ZaUser implements Serializable {
      *
      * @mbggenerated
      */
-    private Byte status;
+    private Integer status;
 
     /**
      * 注册时间
@@ -104,7 +104,7 @@ public class ZaUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public ZaUser(Integer id, String username, String password, String salt, String realname, String img, String email, String position, Integer level, Integer orgId, String orgName, Byte status, Date registerTime, Date updateTime) {
+    public ZaUser(Integer id, String username, String password, String salt, String realname, String img, String email, String position, Integer level, Integer orgId, String orgName, Integer status, Date registerTime, Date updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -213,11 +213,11 @@ public class ZaUser implements Serializable {
         this.orgName = orgName == null ? null : orgName.trim();
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

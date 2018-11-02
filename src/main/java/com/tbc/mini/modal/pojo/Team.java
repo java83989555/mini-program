@@ -66,7 +66,7 @@ public class Team implements Serializable {
      *
      * @mbggenerated
      */
-    private Byte deleted;
+    private Integer deleted;
 
     private Date createTime;
 
@@ -74,7 +74,7 @@ public class Team implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Team(Integer id, Integer companyId, String companyName, String name, String position, String resume, String email, String phone, String wechat, Date foundedTime, String img, Byte deleted, Date createTime, Date updateTime) {
+    public Team(Integer id, Integer companyId, String companyName, String name, String position, String resume, String email, String phone, String wechat, Date foundedTime, String img, Integer deleted, Date createTime, Date updateTime) {
         this.id = id;
         this.companyId = companyId;
         this.companyName = companyName;
@@ -183,11 +183,11 @@ public class Team implements Serializable {
         this.img = img == null ? null : img.trim();
     }
 
-    public Byte getDeleted() {
+    public Integer getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Byte deleted) {
+    public void setDeleted(Integer deleted) {
         this.deleted = deleted;
     }
 

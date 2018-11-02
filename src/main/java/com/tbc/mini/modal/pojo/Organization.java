@@ -83,7 +83,7 @@ public class Organization implements Serializable {
      *
      * @mbggenerated
      */
-    private Byte status;
+    private Integer status;
 
     private Date createTime;
 
@@ -91,7 +91,7 @@ public class Organization implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Organization(Integer id, Integer parentId, String name, String type, String mainImg, String subImg, String intro, String addr, String email, String phone, String wechat, Date foundedTime, Byte status, Date createTime, Date updateTime) {
+    public Organization(Integer id, Integer parentId, String name, String type, String mainImg, String subImg, String intro, String addr, String email, String phone, String wechat, Date foundedTime, Integer status, Date createTime, Date updateTime) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;
@@ -209,11 +209,11 @@ public class Organization implements Serializable {
         this.foundedTime = foundedTime;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

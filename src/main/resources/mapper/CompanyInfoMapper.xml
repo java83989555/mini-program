@@ -16,7 +16,7 @@
       <arg column="wechat" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="founded_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="img" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="deleted" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="deleted" jdbcType="TINYINT" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>

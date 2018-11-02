@@ -14,7 +14,7 @@
       <arg column="level" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="org_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="org_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="status" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="status" jdbcType="TINYINT" javaType="java.lang.Integer" />
       <arg column="register_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>

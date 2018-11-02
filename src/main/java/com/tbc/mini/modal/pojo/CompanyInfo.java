@@ -80,7 +80,7 @@ public class CompanyInfo implements Serializable {
      *
      * @mbggenerated
      */
-    private Byte deleted;
+    private Integer deleted;
 
     private Date createTime;
 
@@ -88,7 +88,7 @@ public class CompanyInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public CompanyInfo(Integer id, String name, String intro, String tags, String money, String singleMoney, String areas, String rounds, String email, String phone, String wechat, Date foundedTime, String img, Byte deleted, Date createTime, Date updateTime) {
+    public CompanyInfo(Integer id, String name, String intro, String tags, String money, String singleMoney, String areas, String rounds, String email, String phone, String wechat, Date foundedTime, String img, Integer deleted, Date createTime, Date updateTime) {
         this.id = id;
         this.name = name;
         this.intro = intro;
@@ -215,11 +215,11 @@ public class CompanyInfo implements Serializable {
         this.img = img == null ? null : img.trim();
     }
 
-    public Byte getDeleted() {
+    public Integer getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Byte deleted) {
+    public void setDeleted(Integer deleted) {
         this.deleted = deleted;
     }
 
