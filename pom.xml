@@ -31,6 +31,7 @@
 		<mysql.version>8.0.13</mysql.version>
 		<commons-lang3.version>3.8.1</commons-lang3.version>
 		<javassist.version>3.23.1-GA</javassist.version>
+		<shiro.vesion>1.2.2</shiro.vesion>
 	</properties>
 
 	<dependencies>
@@ -76,6 +77,27 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>${jwt.version}</version>
+		</dependency>
+		<!-- shiro -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.vesion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro.vesion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-quartz</artifactId>
+			<version>${shiro.vesion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.vesion}</version>
 		</dependency>
 		<!-- 常用工具包 -->
 		<dependency>
