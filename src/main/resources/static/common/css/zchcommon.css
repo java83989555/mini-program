@@ -1,0 +1,112 @@
+.btn-none {
+    border: none !important;
+    border-radius: 0 !important;
+    background-color: #fff;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+.borderB{
+    border-bottom: 1px solid #ddd;
+}
+.btn-none:focus, .btn-none:hover, .btn-none:active, .btn-none:visited {
+    background-color: #fff !important;
+    outline: none!important;
+}
+.opsty-none .btn-none{
+    width: 100% !important;
+    padding: 6px 20px;
+}
+
+.bootstrap-select .dropdown-toggle.btn-none:focus{
+    outline: none!important;
+}
+.ibox .open>.dropdown-menu {
+    right: auto;
+}
+.btn .caret{
+    margin-left: 2px;
+}
+.inlineB{
+    display: inline-block !important;
+}
+.vm{
+    vertical-align: middle;
+}
+.lf{
+    float: left;
+}
+.rt{
+    float: right;
+}
+.relative{
+    position: relative;
+}
+.cm{
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+}
+.like-select{
+    width: 100px;
+    border:0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.cursor{
+    cursor: pointer;
+}
+
+.caretBottom {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-bottom: 4px dashed;
+    border-bottom: 4px solid \9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+.white_color{
+    color: #fff;
+}
+.bold{
+    font-weight: 600;
+}
+.caret-group .caret,.caret-group .caretBottom{
+    opacity: 0.3;
+}
+.caret-group .caret.active,.caret-group .caretBottom.active,.caret-group .caret:hover,.caret-group .caretBottom:hover{
+    opacity: 1;
+}
+textarea{
+    resize: none;
+}
+.fontInherit{
+    font-size: inherit !important;
+}
+.breakword{
+    word-break: break-all;
+}
+/**/
+.nav.nav-tabs li a:hover{
+    background-color: #fff;
+}
+.b{
+    font-weight: 700;
+}
+.btn-default{
+    color: #676a6c;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn-default:focus,.btn-default.focus,.btn-default:hover{
+    color: #676a6c;
+    background-color: #e6e6e6;
+    border-color: #8c8c8c;
+}

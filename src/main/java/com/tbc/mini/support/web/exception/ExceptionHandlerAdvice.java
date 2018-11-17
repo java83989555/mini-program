@@ -1,5 +1,6 @@
 package com.tbc.mini.support.web.exception;
 
+import com.tbc.mini.common.exception.ParamsException;
 import com.tbc.mini.common.exception.ServiceException;
 import com.tbc.mini.support.entity.ServerResponse;
 import com.tbc.mini.support.enums.BaseResponseCode;
@@ -70,6 +71,20 @@ public class ExceptionHandlerAdvice {
         return ServerResponse.createByErrorMessage(ex.getMessage());
     }
 
+    /**
+     * 业务异常
+     *
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(value = ParamsException.class)
+    @ResponseBody
+    public Object paramsException(ParamsException ex) {
+        if (null != ex.getCode() && StringUtils.isNotBlank(ex.getMessage())) {
+            return ServerResponse.createByErrorCodeMessage(ex.getCode(), ex.getMessage());
+        }
+        return ServerResponse.createByErrorMessage(ex.getMessage());
+    }
 
     /**
      * 拦截处理token未传递异常
