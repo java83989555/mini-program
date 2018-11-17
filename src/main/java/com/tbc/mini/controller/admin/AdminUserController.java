@@ -1,21 +1,14 @@
 package com.tbc.mini.controller.admin;
 
-import com.github.pagehelper.PageException;
-import com.sun.scenario.effect.PerspectiveTransform;
-import com.sun.scenario.effect.impl.prism.sw.PSWRenderer;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Accessor;
 import com.tbc.mini.common.exception.ParamsException;
 import com.tbc.mini.modal.pojo.ZaUser;
 import com.tbc.mini.service.ZaUserService;
 import com.tbc.mini.support.enums.ModelConstant;
 import com.tbc.mini.support.web.base.BaseController;
 import com.tbc.mini.support.entity.ServerResponse;
-import oracle.jvm.hotspot.jfr.GlobalTraceBuffer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -37,7 +30,7 @@ public class AdminUserController extends BaseController {
     @GetMapping(value = "list")
     public ServerResponse list(String username,String realname,
                                @RequestParam(value = "pageNum",required = false,defaultValue = "1")int pageNum,
-                               @RequestParam(value = "pageSize",required = false,defaultValue = "1")int pageSize) {
+                               @RequestParam(value = "pageSize",required = false,defaultValue = "10")int pageSize) {
 
         try {
             return zaUserService.getUserList(username,realname,pageNum,pageSize);
@@ -56,7 +49,9 @@ public class AdminUserController extends BaseController {
     public ServerResponse add(ZaUser user) {
         try {
             this.verifyUser(user);
-            user.setPassword(user.getUsername());
+            if(StringUtils.isBlank(user.getUsername())){
+                user.setPassword(user.getUsername());
+            }
             user.setStatus(ModelConstant.ZaUserStatus.NORMAL.getStatus());
             if(null == user.getOrgId()){
                 user.setOrgId(ORG_ID);
@@ -139,7 +134,7 @@ public class AdminUserController extends BaseController {
         try {
             ZaUser user = new ZaUser();
             user.setId(id);
-            user.setStatus(ModelConstant.ZaUserStatus.DEAD.getStatus());
+            user.setStatus(ModelConstant.ZaUserStatus.DELETE.getStatus());
             ServerResponse response = zaUserService.modifyZaUser(user);
             if(!response.isSuccess()){
                 return ServerResponse.createBySuccess("停用失败");
