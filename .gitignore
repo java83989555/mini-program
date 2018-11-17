@@ -1,9 +1,6 @@
-
 .gradle/
 .idea/
 /logs/
 /v-generator/
-/*.yml
 /*.iml
 /target/
-
