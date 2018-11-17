@@ -3,9 +3,12 @@ package com.tbc.mini.support.enums;
 
 public class ModelConstant {
 
+	public static final String SESSION_KEY_USER = "CURRENT_USER";
+
 	public static enum ZaUserStatus {
 		NORMAL(1,"正常"),
-		DEAD(2,"停用");
+		DEAD(2,"停用"),
+		DELETE(3,"删除");
 		private Integer status;
 		private String desc;
 

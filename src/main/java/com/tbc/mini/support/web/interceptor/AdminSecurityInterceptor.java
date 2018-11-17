@@ -1,7 +1,13 @@
 package com.tbc.mini.support.web.interceptor;
 
+import com.tbc.mini.common.exception.ServiceException;
+import com.tbc.mini.modal.pojo.ZaUser;
+import com.tbc.mini.support.entity.ServerResponse;
+import com.tbc.mini.support.enums.BaseResponseCode;
+import com.tbc.mini.support.enums.ModelConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,9 +25,10 @@ public class AdminSecurityInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Integer user = (Integer) request.getSession().getAttribute("userId");
-        if (user == null) {
-            //跳转到登录页面
+        ZaUser user = (ZaUser) request.getSession().getAttribute(ModelConstant.SESSION_KEY_USER);
+        if (user == null || !user.getLevel().equals(ModelConstant.ZaUserLevel.MANAGER.getLevel())) {
+            //登录与管理员校验
+            throw new ServiceException(BaseResponseCode.NEED_LOGIN.getCode(),BaseResponseCode.NEED_LOGIN.getDesc());
         }
         return false;
     }

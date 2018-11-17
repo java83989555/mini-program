@@ -30,6 +30,7 @@ public enum BaseResponseCode {
     TOKEN_NULL(998, "token未传递"),
     TOKEN_ERROR(999, "token错误或失效，请重新登录"),
     NEED_LOGIN(1000,"需要登录"),
+    NEED_MANAGER_LOGIN(1001,"需要登录管理员"),
     ;
 
     private final Integer code;

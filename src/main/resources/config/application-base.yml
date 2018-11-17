@@ -16,7 +16,7 @@ spring:
       web-stat-filter:
         enabled: false
         url-pattern: /*
-        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,*.html'
         session-stat-enable: false
         session-stat-max-count: 1000
         principal-session-name:
@@ -32,6 +32,7 @@ spring:
         deny:
       filters: stat,wall,config
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=false
+
 
 mybatis:
   mapper-locations: classpath*:mapper/*.xml,classpath*:mapper/custom/*.xml
