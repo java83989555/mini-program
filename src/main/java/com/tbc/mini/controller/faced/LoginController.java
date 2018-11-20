@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,12 +30,16 @@ public class LoginController extends BaseController {
     @PostMapping(value = "login")
     public ServerResponse test(String phone, String password, HttpServletResponse response) {
         try {
-            //todo 验证账号密码
-            List<ZaUser> zaUsers = zaUserService.selectByExample(new ZaUserExample());
-
-            String token = JwtFactory.generateUserToken("111");
-            response.setHeader("token", token);
-            return ServerResponse.createBySuccess(zaUsers);
+            ServerResponse<ZaUser> login = zaUserService.login(phone, password);
+            if (login.isSuccess()) {
+                String token = JwtFactory.generateUserToken("111");
+                response.setHeader("token", token);
+                HashMap<String, String> result = new HashMap<>(16);
+                result.put("token", token);
+                result.put("phone", phone);
+                return ServerResponse.createBySuccess(result);
+            }
+            return login;
         } catch (Exception e) {
             return super.errorParsing(e);
         }

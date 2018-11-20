@@ -3,6 +3,7 @@ package com.tbc.mini.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tbc.mini.common.exception.ParamsException;
+import com.tbc.mini.common.utils.JsonUtils;
 import com.tbc.mini.support.entity.ServerResponse;
 import com.tbc.mini.support.enums.ModelConstant;
 import com.tbc.mini.support.service.annotation.BaseService;
@@ -40,16 +41,15 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
     private final static String algorithmName = "md5";
 
 
-
     @Override
     public ServerResponse<ZaUser> login(String username, String password) {
 
         ServerResponse<ZaUser> validResponse = this.checkUsername(username);
-        if (validResponse.isSuccess()) {
+        if (!validResponse.isSuccess()) {
             return ServerResponse.createByErrorMessage("用户名不存在");
         }
         //Filter DEAD ZaUser
-        ZaUser dbUser= validResponse.getData();
+        ZaUser dbUser = validResponse.getData();
         Integer status = dbUser.getStatus();
         if (null == status || status.equals(ModelConstant.ZaUserStatus.DEAD.getStatus())) {
             return ServerResponse.createByErrorMessage("该用户已停用");
@@ -59,21 +59,21 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
         dbUser.setPassword(password);
         encryptPassword(dbUser);
         if (!dbPwdString.equals(dbUser.getPassword())) {
-            return ServerResponse.createByErrorMessage("密码不正确");
+            return ServerResponse.createByErrorMessage("密码不正确！");
         }
         return ServerResponse.createBySuccess(dbUser);
 
     }
 
     @Override
-    public ServerResponse<PageInfo> getUserList(String username,String  realname,int pageNum,int pageSize){
-        PageHelper.startPage(pageNum,pageSize);
+    public ServerResponse<PageInfo> getUserList(String username, String realname, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         ZaUserExample example = new ZaUserExample();
         ZaUserExample.Criteria criteria = example.createCriteria();
-        if(StringUtils.isNotBlank(username)){
+        if (StringUtils.isNotBlank(username)) {
             criteria.andUsernameLike(username);
         }
-        if(StringUtils.isNotBlank(realname)){
+        if (StringUtils.isNotBlank(realname)) {
             criteria.andUsernameLike(realname);
         }
         criteria.andStatusNotEqualTo(ModelConstant.ZaUserStatus.DELETE.getStatus());
@@ -90,7 +90,7 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
             return ServerResponse.createByErrorMessage("用户名和密码不能为空！");
         }
         ServerResponse validResponse = this.checkUsername(zaUser.getUsername());
-        if(!validResponse.isSuccess()){
+        if (!validResponse.isSuccess()) {
             return validResponse;
         }
         Integer rs = zaUserMapper.insert(encryptPassword(zaUser));
@@ -117,14 +117,15 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
 
     /**
      * 校验用户名
+     *
      * @param username
      * @return
      */
-    private ServerResponse<ZaUser> checkUsername(String username){
+    private ServerResponse<ZaUser> checkUsername(String username) {
         ZaUserExample example = new ZaUserExample();
         example.createCriteria().andUsernameEqualTo(username).andStatusNotEqualTo(ModelConstant.ZaUserStatus.DELETE.getStatus());
         List<ZaUser> userList = zaUserMapper.selectByExample(example);
-        if(null == userList || userList.isEmpty()){
+        if (null != userList && !userList.isEmpty()) {
             return ServerResponse.createBySuccess(userList.get(0));
         }
         return ServerResponse.createByErrorMessage("用户名已存在");
@@ -143,4 +144,6 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
         user.setPassword(encryptedPassword);
         return user;
     }
+
+
 }
