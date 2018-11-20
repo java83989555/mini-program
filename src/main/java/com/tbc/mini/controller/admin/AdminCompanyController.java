@@ -1,7 +1,11 @@
 package com.tbc.mini.controller.admin;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.tbc.mini.modal.pojo.CompanyInfo;
+import com.tbc.mini.modal.pojo.CompanyInfoExample;
 import com.tbc.mini.modal.pojo.ZaUser;
+import com.tbc.mini.modal.vo.CompanyInfoVo;
 import com.tbc.mini.service.CompanyInfoService;
 import com.tbc.mini.service.TeamService;
 import com.tbc.mini.service.ZaUserService;
@@ -13,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 高巍
@@ -26,8 +33,6 @@ public class AdminCompanyController extends BaseController {
 
     @Autowired
     private CompanyInfoService companyInfoService;
-    @Autowired
-    private TeamService teamService;
 
 
     /**
@@ -35,11 +40,38 @@ public class AdminCompanyController extends BaseController {
      * @return
      */
     @GetMapping(value = "list")
-    public ServerResponse list(HttpServletRequest request) {
-
-        return ServerResponse.createBySuccess();
+    public ServerResponse list(String name,HttpServletRequest request, @RequestParam(value = "pageNum",required = false,defaultValue = "1")int pageNum,
+                               @RequestParam(value = "pageSize",required = false,defaultValue = "1")int pageSize) {
+        try {
+            CompanyInfoExample example = new CompanyInfoExample();
+            CompanyInfoExample.Criteria criteria = example.createCriteria();
+            if(StringUtils.isNotBlank(name)){
+                criteria.andNameEqualTo(name);
+            }
+            Page<Object> page = PageHelper.startPage(pageNum, pageSize, true);
+            List<CompanyInfo> companyInfoList = companyInfoService.selectByExample(example);
+            Map<String,Object> map = new HashMap<>();
+            map.put("data",companyInfoList);
+            map.put("count",page.getTotal());
+            return ServerResponse.createBySuccess(map);
+        } catch (Exception e) {
+            return super.errorParsing(e);
+        }
     }
 
+
+    /**
+     * 机构详情
+     * @return
+     */
+    @GetMapping(value = "detail")
+    public ServerResponse detail(Integer id) {
+        try {
+            return companyInfoService.detail(id);
+        } catch (Exception e) {
+            return super.errorParsing(e);
+        }
+    }
 
     /**
      * 新增
@@ -47,11 +79,9 @@ public class AdminCompanyController extends BaseController {
      * @return
      */
     @PostMapping(value = "add")
-    public ServerResponse add(CompanyInfo info) {
+    public ServerResponse add(CompanyInfoVo info) {
         try {
-
-
-            return ServerResponse.createBySuccess();
+            return companyInfoService.addCompany(info);
         } catch (Exception e) {
             return super.errorParsing(e);
         }
@@ -59,15 +89,13 @@ public class AdminCompanyController extends BaseController {
 
     /**
      * 修改
-     * @param user
+     * @param info
      * @return
      */
     @PostMapping(value = "update")
-    public ServerResponse update(ZaUser user) {
+    public ServerResponse update(CompanyInfo info) {
         try {
-
-
-            return ServerResponse.createBySuccess();
+            return companyInfoService.updateCompany(info);
         } catch (Exception e) {
             return super.errorParsing(e);
         }
@@ -76,17 +104,18 @@ public class AdminCompanyController extends BaseController {
 
     /**
      * 删除
-     * @param request
      * @param id
      * @return
      */
     @PostMapping(value = "delete")
-    public ServerResponse start(HttpServletRequest request, Integer id) {
-        ZaUser user = new ZaUser();
-
-
-        return ServerResponse.createBySuccess();
+    public ServerResponse delete(Integer id) {
+        try {
+            return companyInfoService.deleteCompany(id);
+        } catch (Exception e) {
+            return super.errorParsing(e);
+        }
     }
+
 
 
 
