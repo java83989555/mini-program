@@ -6,17 +6,14 @@
 <meta http-equiv="Cache-Control" CONTENT="no-cache">
 <meta http-equiv="Pragma" CONTENT="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-	<link rel="bookmark" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/plugs/bootstrap-3.3.5/css/bootstrap.min.css?rev=5d5357cb3704e1f43a1f5bfed2aebf42"/>
-    <link rel="stylesheet" href="/css/font-awesome.min.css?rev=8d95367fd02b00d9709e57d1b045f337"/>
-    <link rel="stylesheet" href="/css/animate.min.css?rev=5d2583e9396158551367d33fd389e70f"/>
-    <link rel="stylesheet" href="/plugs/layer/skin/layer.css?rev=433a1dd8df8c4851be764e907f6d758a"/>
-    <link rel="stylesheet" href="/css/style.min.css?rev=686a8d04e128e38d813d277cae98f61d"/>
-	<link rel="stylesheet" href="/plugs/jquery-toastr/css/toastr.min.css"/>
-    <link rel="stylesheet" href="/plugs/gallery/css/photoGallery.css"/>
-    <link rel="stylesheet" href="/css/main.css?rev=1452688952666"/>
+    <link rel="stylesheet" href="common/plugs/bootstrap-3.3.5/css/bootstrap.min.css?rev=5d5357cb3704e1f43a1f5bfed2aebf42"/>
+    <link rel="stylesheet" href="common/css/font-awesome.min.css?rev=8d95367fd02b00d9709e57d1b045f337"/>
+    <link rel="stylesheet" href="common/css/animate.min.css?rev=5d2583e9396158551367d33fd389e70f"/>
+    <link rel="stylesheet" href="common/plugs/layer/skin/layer.css?rev=433a1dd8df8c4851be764e907f6d758a"/>
+    <link rel="stylesheet" href="common/css/style.min.css?rev=686a8d04e128e38d813d277cae98f61d"/>
+	<link rel="stylesheet" href="common/plugs/jquery-toastr/css/toastr.min.css"/>
+    <link rel="stylesheet" href="common/plugs/gallery/css/photoGallery.css"/>
+    <link rel="stylesheet" href="common/css/main.css?rev=1452688952666"/>
     <title>资管贷前</title>
     <style>
     	.tip_num{
@@ -115,7 +112,7 @@
 		</div>
 
       <div id="content-main" class="row J_mainContent">
-        <iframe name="iframe0" width="100%" height="100%" src="./Modal/main/index/index.html" frameborder="0" data-id="./Modal/main/index/index.html" seamless class="J_iframe"></iframe>
+        <iframe name="iframe0" width="100%" height="100%" src="main/index.html" frameborder="0" data-id="main/index.html" seamless class="J_iframe"></iframe>
       </div>
     </div>
   </div>
@@ -149,123 +146,18 @@
       </div>
     </div>
   </div>
-  <div id="imageSwitch" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-    <div style="width: 100%;" class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header" style="height: 40px;">
-          <button data-dismiss="modal" aria-hidden="true" type="button" class="close">&times;</button>
-          <h4 class="modal-title">图片展示</h4>
-        </div>
-        <div class="modal-body" style="padding: 0; margin: 5px;">
-          <div class="jumbotron" style="padding:5px;">
-            <div class="row">
-              <div class="hide" id="picInfo">
-                <div class="ibox float-e-margins">
-                  <div class="ibox-title">图片信息</div>
-                  <div style="height: 600px; overflow: auto;" class="ibox-content">
-					<template id="guarantorTPL">
-						<div class="guarantor">
-							<h5>担保人</h5>
-							<dl style="margin-left: -50px;" class="dl-horizontal">
-								<dt>担保人姓名</dt>
-								<dd data-name="guarantorName">--</dd>
-								<dt>担保人证件类型</dt>
-								<dd data-name="guarantorCardType" data-formatter="cardType">--</dd>
-								<dt>证件号码</dt>
-								<dd data-name="guarantorCardNo">--</dd>
-								<dt>年龄</dt>
-								<dd data-name="guarantorAge">--</dd>
-							</dl>
-						</div>
-					</template>
-					<div class="coBank">
-                      <dl style="margin-left: -50px;" class="dl-horizontal">
-                        <dt>合作银行</dt>
-                        <dd data-name="coBankName">--</dd>
-                      </dl>
-                    </div>
-					<div class="customer">
-                      <h5>客户信息</h5>
-                      <dl style="margin-left: -50px;" class="dl-horizontal">
-                        <dt>客户姓名</dt>
-                        <dd data-name="customerName">--</dd>
-                        <dt>身份类型</dt>
-                        <dd data-name="customerCardType">--</dd>
-                        <dt>客户编号</dt>
-                        <dd data-name="customerCardNo">--</dd>
-                        <dt>年龄</dt>
-                        <dd data-name="customerAge">--</dd>
-                        <dt>地址</dt>
-                        <dd data-name="customerVisitAddress">--</dd>
-                        <dt>公司地址</dt>
-                        <dd data-name="customerCompanyName">--</dd>
-                        <dt>公司名称</dt>
-                        <dd data-name="customerCompanyName">--</dd>
-                        <dt>公司电话</dt>
-                        <dd data-name="customerCompanyPhone">--</dd>
-                        <dt>公司地址</dt>
-                        <dd data-name="customerCompanyAddress">--</dd>
-                        <dt>职位</dt>
-                        <dd data-name="customerProfession">--</dd>
-                        <!--<dt>月收入</dt>-->
-                        <!--<dd data-name="customerMonthlyIncome">--</dd>-->
-                      </dl>
-                    </div>
-					<div class="spouse">
-                      <h5>配偶信息</h5>
-                      <dl style="margin-left: -50px;" class="dl-horizontal">
-                        <dt>配偶姓名</dt>
-                        <dd data-name="spouseName">--</dd>
-                        <dt>身份类型</dt>
-                        <dd data-name="spouseCardType">--</dd>
-                        <dt>配偶编号</dt>
-                        <dd data-name="spouseCardNo">--</dd>
-                        <dt>年龄</dt>
-                        <dd data-name="spouseAge">--</dd>
-                        <dt>配偶地址</dt>
-                        <dd data-name="spouseVisitAddress">--</dd>
-                      </dl>
-                    </div>
-					<div id="guarantor"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-24 col-sm-24 col-md-24" id="picImage">
-				  <div class="ibox float-e-margins">
-					  <div class="ibox-title"><span id="dirTitle"></span>(<span id="curImg"></span>/<span id="totalImg"></span>)</div>
-					  <div style="height: 600px; overflow: hidden; position: relative;" class="ibox-content" id="imgIframe"> </div>
-				  </div>
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div id="guide" class="modal-dialog" style="width:100%;height:100%;margin:0 0 0 0;">
-		<img id="show1" src="images/guide/approveStart.jpg" >
-		<img id="show2" class="hide" src="images/guide/approveManager.jpg" >
-		<img id="show3" class="hide" src="images/guide/approveBranch.jpg" >
-		<img id="show4" class="hide" src="images/guide/approveChief.jpg" >
-		<img id="show5" class="hide" src="images/guide/approveVice.jpg" >
-		<img id="show6" class="hide" src="images/guide/approveHead.jpg" >
-	</div><!-- /.modal -->
-  </div>
 
 
 </body>
-<script src="/plugs/jquery/jquery-2.1.1.min.js?rev=eb649edd14c8348e9f34a8ca6157c2b6"></script>
-<script src="/plugs/bootstrap-3.3.5/js/bootstrap.min.js?rev=4becdc9104623e891fbb9d38bba01be4"></script>
-<script src="/plugs/jquery-toastr/js/toastr.min.js"></script>
-<script src="/plugs/jquery/jquery.metisMenu.js?rev=596f5abcac8359e9cb8046b69278e5ff"></script>
-<script src="/plugs/jquery/jquery.slimscroll.min.js?rev=db59b66b91ac5999f3502d2fd88c37da"></script>
-<script src="/plugs/layer/layer.js?rev=8962f047eeb03c06cf8200de1bf8ab99"></script>
-<script src="/js/common/tabs.js?rev=1452688952665"></script>
-<script src="/js/common/pace.min.js?rev=138fe1152c26f969c65fcd5c1cdc749e"></script>
-<script src="/plugs/gallery/js/jquery.photo.gallery.js"></script>
-<script src="/js/common/URL.js?rev=6631a779321bc03f4a5281d3ff526250"></script>
-<script src="/js/main.js?rev=6631a779321bc03f4a5281d3ff526251"></script>
+<script src="common/plugs/jquery/jquery-2.1.1.min.js?rev=eb649edd14c8348e9f34a8ca6157c2b6"></script>
+<script src="common/plugs/bootstrap-3.3.5/js/bootstrap.min.js?rev=4becdc9104623e891fbb9d38bba01be4"></script>
+<script src="common/plugs/jquery-toastr/js/toastr.min.js"></script>
+<script src="common/plugs/jquery/jquery.metisMenu.js?rev=596f5abcac8359e9cb8046b69278e5ff"></script>
+<script src="common/plugs/jquery/jquery.slimscroll.min.js?rev=db59b66b91ac5999f3502d2fd88c37da"></script>
+<script src="common/plugs/layer/layer.js?rev=8962f047eeb03c06cf8200de1bf8ab99"></script>
+<script src="js/common/tabs.js?rev=1452688952665"></script>
+<script src="js/common/pace.min.js?rev=138fe1152c26f969c65fcd5c1cdc749e"></script>
+<script src="common/plugs/gallery/js/jquery.photo.gallery.js"></script>
+<script src="js/common/URL.js?rev=6631a779321bc03f4a5281d3ff526250"></script>
+<script src="js/main.js?rev=6631a779321bc03f4a5281d3ff526251"></script>

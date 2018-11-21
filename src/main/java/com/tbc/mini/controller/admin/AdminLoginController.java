@@ -3,14 +3,14 @@ package com.tbc.mini.controller.admin;
 import com.tbc.mini.modal.pojo.ZaUser;
 import com.tbc.mini.service.ZaUserService;
 import com.tbc.mini.support.entity.ServerResponse;
+import com.tbc.mini.support.enums.BaseResponseCode;
 import com.tbc.mini.support.enums.ModelConstant;
 import com.tbc.mini.support.web.base.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,10 +36,10 @@ public class AdminLoginController extends BaseController {
             return ServerResponse.createByErrorMessage("用户已登录，若要切换用户，请先退出系统。");
         }
         if (StringUtils.isBlank(username)) {
-            return ServerResponse.createByErrorMessage("用户名不能为空");
+            return ServerResponse.createByErrorCodeMessage(BaseResponseCode.NULL_USER.getCode(),BaseResponseCode.NULL_USER.getDesc());
         }
         if (StringUtils.isBlank(password)) {
-            return ServerResponse.createByErrorMessage("密码不能为空");
+            return ServerResponse.createByErrorCodeMessage(BaseResponseCode.NULL_PWD.getCode(),BaseResponseCode.NULL_PWD.getDesc());
         }
         ServerResponse<ZaUser> response = zaUserService.login(username,password);
         if(response.isSuccess()){
@@ -49,7 +49,7 @@ public class AdminLoginController extends BaseController {
                 request.getSession().setAttribute(ModelConstant.SESSION_KEY_USER,user);
                 return response;
             }else{
-                return ServerResponse.createByErrorMessage("不是管理员,无法登录");
+                return ServerResponse.createByErrorCodeMessage(BaseResponseCode.NEED_MANAGER_LOGIN.getCode(),BaseResponseCode.NEED_MANAGER_LOGIN.getDesc());
             }
         }
         return response;
@@ -62,10 +62,18 @@ public class AdminLoginController extends BaseController {
      * @param request
      * @return
      */
-    @PostMapping(value = "logout")
+    @GetMapping(value = "logout")
     public ServerResponse logout(HttpServletRequest request) {
-        request.getSession().removeAttribute(SESSION_KEY_USER);
+        request.getSession().removeAttribute(ModelConstant.SESSION_KEY_USER);
         return ServerResponse.createBySuccess();
 
+    }
+
+
+    @GetMapping(value = "sessionGet")
+    public ServerResponse sessionUser() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+                .getRequest();
+        return ServerResponse.createBySuccess(request.getSession().getAttribute(ModelConstant.SESSION_KEY_USER));
     }
 }

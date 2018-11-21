@@ -1,21 +1,18 @@
 $(function() {
 	$.ajax({
-		url: interUrl.basic + interUrl.user.getUser,
-		type: "POST",
+		url: interUrl.basic + interUrl.adminUser.sessionGet,
 		dataType: "json",
-		success: function(data, textStatus, jqXHR) {
+		success: function(data) {
 			if (typeof data === "string") {
 				data = JSON.parse(data);
 			}
-			if (data.code === 10000) {
-				return location.href = "./main.html";
+			if (data.code === 1) {
+				return location.href = "main.html";
 			}
 		}
 	});
 	
 	$(".navbar-nav img").attr("src",  "images/login_logo.jpg");
-	$("#isCherong img").attr("src",  "images/code.png");
-	$("#isCherong p").html("请扫描二维码下载车贷APP");
 	$("#chedaiImg, #tel").removeClass("hide");
 
 	if ($.cookie('userName') == 'null') {
@@ -45,7 +42,7 @@ $(function() {
 	
    function loginEnter(){
         $.ajax({
-		url: interUrl.basic + interUrl.user.login,
+		url: interUrl.basic + interUrl.adminUser.login,
 		type: "POST",
 		data: $("#loginForm").values(),
 		success: function(res) {
@@ -53,7 +50,7 @@ $(function() {
 			var userName = $("input[name=userName]").val();
 			if (code == 1) {
 				delCookie(userName);
-			} else if (code == 0) {
+			} else if (code == 1) {
 				addCookie(userName);
 			};
 			var o;
@@ -62,13 +59,10 @@ $(function() {
 			} else {
 				o = res;
 			}
-			if (o["code"] === 20001) {
-				return location.href = "main.html?type=modifyPWD"
-			}
-			if (o["code"] === 10000) {
+			if (o["code"] === 1) {
 				location.href = "main.html";
-			} else if (o['code'] === 20000) {
-				$('#errInfo').html(res['message']);
+			} else{
+				$('#errInfo').html(res['msg']);
 				$("#loginError").modal("show");
 			}
 		}
@@ -98,13 +92,5 @@ $(function() {
 		}
 	});
 	
-	//taosj 20170707 add system version
-	$.ajax({
-		url: interUrl.basic + interUrl.common.getSystemVersion,
-		type: "GET",
-		dataType: "json",
-		success: function(data, textStatus, jqXHR) {
-			$('#js_version').html(data.data.systemVersion);
-		}
-	});
+
 });

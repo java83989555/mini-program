@@ -1,19 +1,21 @@
 package com.tbc.mini.modal.vo;
 
-import com.tbc.mini.modal.pojo.CompanyInfo;
-import com.tbc.mini.modal.pojo.Team;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+/**
+ * @author 高巍
+ * @createTime 2018年11月17日 16:41
+ * @description 小程序公司列表视图对象
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class CompanyInfoVO {
 
-public class CompanyInfoVo extends CompanyInfo{
 
-    private List<Team> teamList;
 
-    public List<Team> getTeamList() {
-        return teamList;
-    }
-
-    public void setTeamList(List<Team> teamList) {
-        this.teamList = teamList;
-    }
 }

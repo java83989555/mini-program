@@ -1882,4 +1882,3 @@ function limitInput(dom,fn){
     }, false);
 
 }
-console.log=function(){};
