@@ -41,6 +41,13 @@ public class Team implements Serializable {
      */
     private String resume;
 
+    /**
+     * 投资偏好
+     *
+     * @mbggenerated
+     */
+    private String preference;
+
     private String email;
 
     private String phone;
@@ -52,7 +59,7 @@ public class Team implements Serializable {
      *
      * @mbggenerated
      */
-    private Date foundedTime;
+    private String foundedTime;
 
     /**
      * 头像
@@ -74,13 +81,14 @@ public class Team implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Team(Integer id, Integer companyId, String companyName, String name, String position, String resume, String email, String phone, String wechat, Date foundedTime, String img, Integer deleted, Date createTime, Date updateTime) {
+    public Team(Integer id, Integer companyId, String companyName, String name, String position, String resume, String preference, String email, String phone, String wechat, String foundedTime, String img, Integer deleted, Date createTime, Date updateTime) {
         this.id = id;
         this.companyId = companyId;
         this.companyName = companyName;
         this.name = name;
         this.position = position;
         this.resume = resume;
+        this.preference = preference;
         this.email = email;
         this.phone = phone;
         this.wechat = wechat;
@@ -143,6 +151,14 @@ public class Team implements Serializable {
         this.resume = resume == null ? null : resume.trim();
     }
 
+    public String getPreference() {
+        return preference;
+    }
+
+    public void setPreference(String preference) {
+        this.preference = preference == null ? null : preference.trim();
+    }
+
     public String getEmail() {
         return email;
     }
@@ -167,12 +183,12 @@ public class Team implements Serializable {
         this.wechat = wechat == null ? null : wechat.trim();
     }
 
-    public Date getFoundedTime() {
+    public String getFoundedTime() {
         return foundedTime;
     }
 
-    public void setFoundedTime(Date foundedTime) {
-        this.foundedTime = foundedTime;
+    public void setFoundedTime(String foundedTime) {
+        this.foundedTime = foundedTime == null ? null : foundedTime.trim();
     }
 
     public String getImg() {
@@ -219,6 +235,7 @@ public class Team implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", position=").append(position);
         sb.append(", resume=").append(resume);
+        sb.append(", preference=").append(preference);
         sb.append(", email=").append(email);
         sb.append(", phone=").append(phone);
         sb.append(", wechat=").append(wechat);
@@ -249,6 +266,7 @@ public class Team implements Serializable {
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPosition() == null ? other.getPosition() == null : this.getPosition().equals(other.getPosition()))
             && (this.getResume() == null ? other.getResume() == null : this.getResume().equals(other.getResume()))
+            && (this.getPreference() == null ? other.getPreference() == null : this.getPreference().equals(other.getPreference()))
             && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
             && (this.getWechat() == null ? other.getWechat() == null : this.getWechat().equals(other.getWechat()))
@@ -269,6 +287,7 @@ public class Team implements Serializable {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPosition() == null) ? 0 : getPosition().hashCode());
         result = prime * result + ((getResume() == null) ? 0 : getResume().hashCode());
+        result = prime * result + ((getPreference() == null) ? 0 : getPreference().hashCode());
         result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         result = prime * result + ((getWechat() == null) ? 0 : getWechat().hashCode());

@@ -14,7 +14,7 @@
       <arg column="level" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="org_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="org_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="status" jdbcType="TINYINT" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="register_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
@@ -120,7 +120,7 @@
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{salt,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
-      #{orgId,jdbcType=INTEGER}, #{orgName,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{orgId,jdbcType=INTEGER}, #{orgName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{registerTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.tbc.mini.modal.pojo.ZaUser" >
@@ -204,7 +204,7 @@
         #{orgName,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="registerTime != null" >
         #{registerTime,jdbcType=TIMESTAMP},
@@ -257,7 +257,7 @@
         org_name = #{record.orgName,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=TINYINT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.registerTime != null" >
         register_time = #{record.registerTime,jdbcType=TIMESTAMP},
@@ -283,7 +283,7 @@
       level = #{record.level,jdbcType=INTEGER},
       org_id = #{record.orgId,jdbcType=INTEGER},
       org_name = #{record.orgName,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=INTEGER},
       register_time = #{record.registerTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -324,7 +324,7 @@
         org_name = #{orgName,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=TINYINT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="registerTime != null" >
         register_time = #{registerTime,jdbcType=TIMESTAMP},
@@ -347,7 +347,7 @@
       level = #{level,jdbcType=INTEGER},
       org_id = #{orgId,jdbcType=INTEGER},
       org_name = #{orgName,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
+      status = #{status,jdbcType=INTEGER},
       register_time = #{registerTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
