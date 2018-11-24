@@ -3,20 +3,16 @@ package com.tbc.mini.service.impl;
 import com.tbc.mini.common.exception.ParamsException;
 import com.tbc.mini.mapper.TeamMapper;
 import com.tbc.mini.modal.pojo.*;
-import com.tbc.mini.modal.vo.CompanyInfoVo;
-import com.tbc.mini.service.TeamService;
+import com.tbc.mini.modal.vo.CompanyInfoAdminVo;
 import com.tbc.mini.support.entity.ServerResponse;
-import com.tbc.mini.support.enums.ModelConstant;
 import com.tbc.mini.support.service.annotation.BaseService;
 import com.tbc.mini.support.service.base.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import com.tbc.mini.mapper.CompanyInfoMapper;
 import com.tbc.mini.service.CompanyInfoService;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -38,8 +34,8 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
     private TeamMapper teamMapper;
 
     @Override
-    public ServerResponse<CompanyInfoVo> detail(Integer id) {
-        CompanyInfoVo vo = new CompanyInfoVo();
+    public ServerResponse<CompanyInfoAdminVo> detail(Integer id) {
+        CompanyInfoAdminVo vo = new CompanyInfoAdminVo();
         CompanyInfo info = companyInfoMapper.selectByPrimaryKey(id);
         BeanUtils.copyProperties(info,vo);
         TeamExample example = new TeamExample();

@@ -2,7 +2,7 @@ package com.tbc.mini.service;
 
 import com.tbc.mini.modal.pojo.CompanyInfo;
 import com.tbc.mini.modal.pojo.CompanyInfoExample;
-import com.tbc.mini.modal.vo.CompanyInfoVo;
+import com.tbc.mini.modal.vo.CompanyInfoAdminVo;
 import com.tbc.mini.support.entity.ServerResponse;
 import com.tbc.mini.support.service.base.BaseService;
 
@@ -19,7 +19,7 @@ public interface CompanyInfoService extends BaseService<CompanyInfo, CompanyInfo
      * @param id
      * @return
      */
-    public ServerResponse<CompanyInfoVo> detail(Integer id);
+    public ServerResponse<CompanyInfoAdminVo> detail(Integer id);
 
     /**
      * 新建机构

@@ -4,13 +4,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tbc.mini.modal.pojo.CompanyInfo;
 import com.tbc.mini.modal.pojo.CompanyInfoExample;
-import com.tbc.mini.modal.pojo.ZaUser;
-import com.tbc.mini.modal.vo.CompanyInfoVo;
 import com.tbc.mini.service.CompanyInfoService;
-import com.tbc.mini.service.TeamService;
-import com.tbc.mini.service.ZaUserService;
 import com.tbc.mini.support.entity.ServerResponse;
-import com.tbc.mini.support.enums.ModelConstant;
 import com.tbc.mini.support.web.base.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +74,7 @@ public class AdminCompanyController extends BaseController {
      * @return
      */
     @PostMapping(value = "add")
-    public ServerResponse add(CompanyInfoVo info) {
+    public ServerResponse add(CompanyInfo info) {
         try {
             return companyInfoService.addCompany(info);
         } catch (Exception e) {

@@ -1,13 +1,9 @@
 package com.tbc.mini.controller.admin;
 
 import com.tbc.mini.modal.pojo.Organization;
-import com.tbc.mini.modal.pojo.ZaUser;
 import com.tbc.mini.service.OrganizationService;
-import com.tbc.mini.service.ZaUserService;
 import com.tbc.mini.support.entity.ServerResponse;
-import com.tbc.mini.support.enums.ModelConstant;
 import com.tbc.mini.support.web.base.BaseController;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

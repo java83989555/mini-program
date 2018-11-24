@@ -30,7 +30,7 @@ public class AdminSecurityInterceptor implements HandlerInterceptor {
             //登录与管理员校验
             throw new ServiceException(BaseResponseCode.NEED_LOGIN.getCode(),BaseResponseCode.NEED_LOGIN.getDesc());
         }
-        return false;
+        return true;
     }
 
     @Override

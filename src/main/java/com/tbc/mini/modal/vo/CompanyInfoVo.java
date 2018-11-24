@@ -3,7 +3,6 @@ package com.tbc.mini.modal.vo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @author 高巍
@@ -12,7 +11,6 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class CompanyInfoVO {
 
