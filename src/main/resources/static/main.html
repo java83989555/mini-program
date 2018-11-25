@@ -6,6 +6,9 @@
 <meta http-equiv="Cache-Control" CONTENT="no-cache">
 <meta http-equiv="Pragma" CONTENT="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+	<link rel="bookmark" href="images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="common/plugs/bootstrap-3.3.5/css/bootstrap.min.css?rev=5d5357cb3704e1f43a1f5bfed2aebf42"/>
     <link rel="stylesheet" href="common/css/font-awesome.min.css?rev=8d95367fd02b00d9709e57d1b045f337"/>
     <link rel="stylesheet" href="common/css/animate.min.css?rev=5d2583e9396158551367d33fd389e70f"/>
@@ -14,7 +17,7 @@
 	<link rel="stylesheet" href="common/plugs/jquery-toastr/css/toastr.min.css"/>
     <link rel="stylesheet" href="common/plugs/gallery/css/photoGallery.css"/>
     <link rel="stylesheet" href="common/css/main.css?rev=1452688952666"/>
-    <title>资管贷前</title>
+    <title>百达后台管理</title>
     <style>
     	.tip_num{
         position: absolute;
@@ -54,13 +57,28 @@
     <nav role="navigation" class="navbar-default navbar-static-side">
       <div class="layer_disabled hide" id="layer_disabled" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 100;"></div>
       <div class="nav-close"><i class="fa fa-times-circle"></i></div>
-      <div class="sidebar-collapse">
-        <ul id="side-menu" class="nav">
-          <li class="nav-header">
-            <div class="dropdown profile-element text-center"><a href="./Modal/main/index/index.html" data-index="0" class="J_menuItem"><img src="" width="80%"></a></div>
-          </li>
-        </ul>
-      </div>
+        <div class="sidebar-collapse" style="width: auto; height: 100%;"> 
+            <ul id="side-menu" class="nav"> 
+                <li class="nav-header"> 
+                    <div class="dropdown profile-element text-center"> 
+                        <a href="main/index.html" data-index="0" class="J_menuItem"> 
+                            <img src="images/logo.png" width="80%"> 
+                        </a> 
+                    </div> 
+                </li>
+                 <li class="hide">
+                    <a><i class="fa iconfont icon-renwu"></i>
+                          <span class="nav-label">我的任务</span> 
+                        <span class="fa arrow"></span> 
+                    </a> 
+                    <ul class="nav nav-second-level collapse">
+                        <li><a class="J_menuItem" href="user/index.html" data-index="21">我的任务</a> 
+                        </li> 
+                    </ul> 
+                </li> 
+            </ul>
+             </div>
+
     </nav>
     <div class="dislpayArrow"><a href="javascript: void(0);" class="nav-close"></a></div>
     <!--main部分-->
@@ -72,17 +90,14 @@
 					<div style="height: 50px; line-height: 50px;" class="row text-right">
 						<div class="col-xs-24 col-sm-24 col-md-24">
 							<div class="nav navbar-nav navbar-left" id="icon_title">
-								<!--<span class="nav_title">车贷业务管理系统</span>-->
+								<span class="nav_title">百达后台管理系统</span>
 								<img src="" alt="" class="nav_title">
 							</div>
 							<div class="nav navbar-nav hidden-sm version" id="js_main_version">
   	  	 	   				</div>
 							<ul class="nav navbar-nav navbar-right m-r-lg hidden-xs navBox-main">
 								<li>你好，<span id="userName"></span></li>
-								<li class="nav-btn" for='01'><span onclick="menuItemClick.call({title:'修改个人信息', href:'./Modal/personalCenter/modifyPassword/modifyPassword.html'});">修改个人信息</span></li>
-								<li class="nav-btn" for='02'><span onclick="menuItemClick.call({title:'在线提问', href:'./Modal/messageBoardManage/messageBoard/index.html?type=2'});">在线提问</span></li>
 								<li class="nav-btn" for='03'><span class="J_tabExit">注销</span></li>
-								<!-- <li class="nav-btn"><span onclick="menuItemClick.call({title:'帮助', href:''});">帮助</span></li>-->
 							</ul>
 						</div>
 					</div>
@@ -91,7 +106,7 @@
 			<div class="row content-tabs bg-ff">
 				<button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i></button>
 				<nav class="page-tabs J_menuTabs">
-					<div class="page-tabs-content"><a data-id="./Modal/main/index/index.html" class="active J_menuTab">首页</a></div>
+					<div class="page-tabs-content"><a data-id="main/index.html" class="active J_menuTab">首页</a></div>
 				</nav>
 				<button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i></button>
 				<div class="btn-group roll-nav roll-right">
@@ -146,7 +161,6 @@
       </div>
     </div>
   </div>
-
 
 
 </body>

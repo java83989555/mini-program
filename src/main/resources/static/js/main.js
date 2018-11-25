@@ -1,4 +1,4 @@
-var angle, cache, cardType,  imgArrString, initMenu, swp, user, recordDocQuery, allImg, imgIds, toVal;
+var angle, cache, cardType,  imgArrString, initMenu, swp, swpImage, user, recordDocQuery, allImg, imgIds, toVal;
 
 recordDocQuery = null;
 
@@ -81,7 +81,109 @@ toggleTopNav = function(){
 	$("#content-main").css(o); 
 }
 
+// swpImage = function(o) {
+// 	if(o.title){ $("#dirTitle").text(o.title); }
+// 	return $.ajax({
+// 		url: interUrl.basic + interUrl.gr.getPhoto,
+// 		type: 'POST',
+// 		data: {
+// 			loanApplyId: o.loanApplyId,
+// 			dirId: o.dirId,
+// 			fileNamespace: o.fileNamespace,
+// 			releventFlow: o['releventFlow'],
+// 			releventFlowNode: o['releventFlowNode']
+// 		},
+// 		success: function(res) {
+// 			  var arr = [], _index = 0, ref = res.data.loanDocumentList, results = [];
+// 			  for (k = j = 0, len = ref.length; j < len; k = ++j) {
+// 				i = ref[k];
+// 				arr.push(i.filePath);
+// 				if (i.id === o.id) {
+// 				  results.push(_index = k);
+// 				} else {
+// 				  results.push(void 0);
+// 				}
+// 			  }
+// 			  allImg = res.data.loanDocumentList;
+// 			  switchImage(arr, _index, 1);
+// 			  recordDocQuery = function(ids) {
+// 				  var obj = {}, ids = ids.split(",");
+// 				  for(var i=0; i< allImg.length; i++){
+// 					  for(var j=0; j< ids.length; j++){
+// 						  if(allImg[i].id == ids[j]){
+// 							  if(!obj[allImg[i].dirId]){obj[allImg[i].dirId] = []};
+// 							  obj[allImg[i].dirId].push(ids[j]);
+// 						  }
+// 					  }
+// 				  }
+// 				  for(item in obj){
+// 					  $.ajax({
+// 						  url: interUrl.basic + interUrl.gr.recordDocQueryHistory,
+// 						  type: "post",
+// 						  data: {
+// 							  loanApplyId: o.loanApplyId,
+// 							  dirId: item,
+// 							  fileNamespace: o.fileNamespace,
+// 							  releventFlow: o['releventFlow'],
+// 							  releventFlowNode: o['releventFlowNode'],
+// 							  docIds: obj[item].join(",")
+// 						  },
+// 						  success: function(res){
+// 							  if(res.code == 20000){return comn.tip({content: res.message || "<code>" + o.url + "</code><br /> 接口异常！！！"})};
+// 							  if(typeof(o.callback == "function")){
+// 								  imgIds = [];
+// 								  o.callback(ids.join(","));
+// 							  }
+// 						  }
+// 					  });
+//
+//
+// 				  }
+//
+// 			  }
+// 			if(res.data.loanDocumentList[_index].hasRead == 1){ imgIds.push(res.data.loanDocumentList[_index].id); }
+// 			toVal = function(dirId){
+// 				var dirId = dirId || allImg[_index].dirId;
+// 				$("#guarantor")[0].innerHTML = "暂无数据!";
+// 				if(res.data && res.data.photoInfo && res.data.photoInfo[dirId].Guarantor_Info){
+// 					$.each(res.data.photoInfo[dirId].Guarantor_Info, function(i, item){
+// 						$("#guarantor").append($("#guarantorTPL").html()).children().eq(i).nameValues(item);
+// 					});
+// 				}
+// 				if (res.data.photoInfo && res.data.photoInfo[dirId].Customer_Info) {
+// 					$(".customer").show().nameValues(res.data.photoInfo[dirId].Customer_Info);
+// 				}else{
+// 					$(".customer").hide();
+// 				}
+// 				if (res.data.photoInfo && res.data.photoInfo[dirId].Spouse_Info) {
+// 					$(".spouse").show().nameValues(res.data.photoInfo[dirId].Spouse_Info);
+// 				}else{
+// 					$(".spouse").hide();
+// 				}
+// 				if ((ref2 = res.data.photoInfo) != null ? ref2.Credit_Info : void 0) {
+// 					$(".coBank").show().nameValues(res.data.photoInfo[dirId].Credit_Info);
+// 				} else {
+// 					$(".coBank").hide();
+// 				}
+// 			}
+// 			toVal();
+//
+//
+// 		}
+// 	});
+// };
 
+function switchImage(arr, _index, type){
+	if(type == 1){
+		$("#picInfo")[0].className = "col-md-8";
+		$("#picImage")[0].className = "col-md-16"
+	}else{
+		$("#picInfo")[0].className = "hide";
+		$("#picImage")[0].className = "col-md-24"
+	}
+	$("#imageSwitch").modal("show")
+	$.openPhotoGallery(arr, _index);
+}
 
 function curImg(index) { 
 	if(index){
@@ -156,14 +258,18 @@ initMenu = function(data) {
 
 
 
+
 $(function() {
 
+
+
+	if(document.location.href == "http://ht-cd.cheguo.com/view/main.html") document.title = '非资管贷前';
 	$("#imageSwitch").on("hide.bs.modal", function(){ 
 		if(imgIds && imgIds.length > 0){
 			recordDocQuery(imgIds.join(",")); 
 		}
 	});
-	//$(".nav-header img").attr("src",  'images/logo.png');
+	$(".nav-header img").attr("src",  'images/logo.png');
 	$("#content-main").removeClass("styleCR");
 
 	$.ajax({
@@ -178,6 +284,25 @@ $(function() {
 			} else if (data.code === 1) {
                 user = data.data;
                 return $("#userName").text(data.data.realname);
+			} else {
+                $("#dialogTip").nameValues({
+                    content: data.message
+                });
+                return $("#dialogTip").modal("show");
+			}
+		}
+	});
+	$.ajax({
+		url: interUrl.basic + interUrl.adminUser.menu,
+		dataType: "json",
+		success: function(data) {
+			if (typeof data === "string") {
+				data = JSON.parse(data);
+			}
+			if (data.code === 1000 || data.code === 1001) {
+				return location.href = "./index.html";
+			} else if (data.code === 1) {
+                initMenu(data.data);
 
 			} else {
                 $("#dialogTip").nameValues({
@@ -187,29 +312,11 @@ $(function() {
 			}
 		}
 	});
-	//$.ajax({
-	//	url: interUrl.basic + interUrl.adminUser.menu,
-	//	dataType: "json",
-	//	success: function(data) {
-	//		if (typeof data === "string") {
-	//			data = JSON.parse(data);
-	//		}
-	//		if (data.code === 1001 || data.code ===1000) {
-	//			return location.href = "./index.html";
-	//		} else if (data.code === 1) {
-    //            initMenu(data.data);
-    //		} else {
-    //            $("#dialogTip").nameValues({
-    //                content: data.message
-    //            });
-    //            return $("#dialogTip").modal("show");
-    //		}
-    //	}
-    //});
 
 	$(".J_tabExit").click(function() {
 		return $("#logOut").modal("show");
 	});
+	
 	
 
 	
@@ -218,11 +325,11 @@ $(function() {
 		$.ajax({
 			url: interUrl.basic + interUrl.adminUser.logout,
 			dataType: "json",
-			success: function(data, textStatus, jqXHR) {
+			success: function(data) {
 			  if (typeof data === "string") {
 				data = JSON.parse(data);
 			  }
-			  if(data.code === 1 || data.code === 1001 || data.code ===1000){
+			  if(data.code == 1000 || data.code == 1001 || data.code == 1){
 					location.href = "./index.html";
 			  }
 			}
@@ -230,11 +337,11 @@ $(function() {
 	});
 	// 报表菜单加载
 	var hrefs = $("#side-menu").find("li"); 
-	// for (var i = hrefs.length - 1; i >= 0; i--) {
-	// 	var href= hrefs[i].sysMenuList('a').attr('href');
-	// 	console.log(href+"<br>");
-	// };
-	// $("#side-menu .nav-header").attr('href', './Modal/main/index/index.html?methods='+href);
+	for (var i = hrefs.length - 1; i >= 0; i--) {
+		var href= hrefs[i].sysMenuList('a').attr('href');
+		console.log(href+"<br>");
+	};
+	$("#side-menu .nav-header").attr('href', 'main/index/index.html?methods='+href);
 
 });
 $('body').on('click','.nav-close',function(){

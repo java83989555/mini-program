@@ -1,6 +1,7 @@
 package com.tbc.mini.controller.admin;
 
 import com.tbc.mini.modal.pojo.ZaUser;
+import com.tbc.mini.modal.vo.MenuVo;
 import com.tbc.mini.service.ZaUserService;
 import com.tbc.mini.support.entity.ServerResponse;
 import com.tbc.mini.support.enums.BaseResponseCode;
@@ -13,6 +14,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.tbc.mini.support.enums.ModelConstant.SESSION_KEY_USER;
 
@@ -67,6 +71,36 @@ public class AdminLoginController extends BaseController {
         request.getSession().removeAttribute(ModelConstant.SESSION_KEY_USER);
         return ServerResponse.createBySuccess();
 
+    }
+
+    @GetMapping(value = "menu")
+    public ServerResponse menu() {
+        List<MenuVo> menuVoList = new ArrayList<>();
+        MenuVo vo = new MenuVo();
+        vo.setChecked(false);
+        vo.setMenuName("系统管理");
+        vo.setMenuType("URL");
+        vo.setLogoTag("icon-zhichi");
+        vo.setOrders(1L);
+        vo.setUrl("/");
+        List<MenuVo> detailList = new ArrayList<>();
+        MenuVo detail1 = new MenuVo();
+        detail1.setChecked(false);
+        detail1.setMenuName("用户管理");
+        detail1.setMenuType("URL");
+        detail1.setOrders(1L);
+        detail1.setUrl("user/index.html");
+        MenuVo detail2 = new MenuVo();
+        detail2.setChecked(false);
+        detail2.setMenuName("机构管理");
+        detail2.setMenuType("URL");
+        detail2.setOrders(2L);
+        detail2.setUrl("company/index.html");
+        detailList.add(detail1);
+        detailList.add(detail2);
+        vo.setSysMenuList(detailList);
+        menuVoList.add(vo);
+        return ServerResponse.createBySuccess(menuVoList);
     }
 
 
