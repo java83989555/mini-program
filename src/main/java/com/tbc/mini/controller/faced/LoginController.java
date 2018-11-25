@@ -3,9 +3,11 @@ package com.tbc.mini.controller.faced;
 import com.tbc.mini.modal.pojo.ZaUser;
 import com.tbc.mini.modal.pojo.ZaUserExample;
 import com.tbc.mini.service.ZaUserService;
+import com.tbc.mini.support.enums.BaseResponseCode;
 import com.tbc.mini.support.web.base.BaseController;
 import com.tbc.mini.support.entity.ServerResponse;
 import com.tbc.mini.support.web.jwt.JwtFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +32,13 @@ public class LoginController extends BaseController {
     @PostMapping(value = "login")
     public ServerResponse test(String phone, String password, HttpServletResponse response) {
         try {
+            if (StringUtils.isBlank(phone) || StringUtils.isBlank(password)) {
+                return ServerResponse.createByErrorCodeMessage(BaseResponseCode.ILLEGAL_ARGUMENT);
+            }
             ServerResponse<ZaUser> login = zaUserService.login(phone, password);
+            ZaUser zaUser=login.getData();
             if (login.isSuccess()) {
-                String token = JwtFactory.generateUserToken("111");
+                String token = JwtFactory.generateUserToken(String.valueOf(zaUser.getId()));
                 response.setHeader("token", token);
                 HashMap<String, String> result = new HashMap<>(16);
                 result.put("token", token);
