@@ -15,7 +15,7 @@
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="wechat" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="founded_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="status" jdbcType="TINYINT" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
@@ -123,7 +123,7 @@
       #{type,jdbcType=VARCHAR}, #{mainImg,jdbcType=VARCHAR}, #{subImg,jdbcType=VARCHAR}, 
       #{intro,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{foundedTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tbc.mini.modal.pojo.Organization" >
@@ -213,7 +213,7 @@
         #{foundedTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -269,7 +269,7 @@
         founded_time = #{record.foundedTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=TINYINT},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -296,7 +296,7 @@
       phone = #{record.phone,jdbcType=VARCHAR},
       wechat = #{record.wechat,jdbcType=VARCHAR},
       founded_time = #{record.foundedTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -340,7 +340,7 @@
         founded_time = #{foundedTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=TINYINT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -364,7 +364,7 @@
       phone = #{phone,jdbcType=VARCHAR},
       wechat = #{wechat,jdbcType=VARCHAR},
       founded_time = #{foundedTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=TINYINT},
+      status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

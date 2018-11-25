@@ -9,12 +9,13 @@
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="position" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="resume" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="preference" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="wechat" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="founded_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="founded_time" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="img" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="deleted" jdbcType="TINYINT" javaType="java.lang.Integer" />
+      <arg column="deleted" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
@@ -78,8 +79,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, company_id, company_name, name, position, resume, email, phone, wechat, founded_time, 
-    img, deleted, create_time, update_time
+    id, company_id, company_name, name, position, resume, preference, email, phone, wechat, 
+    founded_time, img, deleted, create_time, update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tbc.mini.modal.pojo.TeamExample" >
     select
@@ -114,14 +115,16 @@
   <insert id="insert" parameterType="com.tbc.mini.modal.pojo.Team" >
     insert into team (id, company_id, company_name, 
       name, position, resume, 
-      email, phone, wechat, 
-      founded_time, img, deleted, 
-      create_time, update_time)
+      preference, email, phone, 
+      wechat, founded_time, img, 
+      deleted, create_time, update_time
+      )
     values (#{id,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{resume,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
-      #{foundedTime,jdbcType=TIMESTAMP}, #{img,jdbcType=VARCHAR}, #{deleted,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{preference,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{wechat,jdbcType=VARCHAR}, #{foundedTime,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tbc.mini.modal.pojo.Team" >
     insert into team
@@ -143,6 +146,9 @@
       </if>
       <if test="resume != null" >
         resume,
+      </if>
+      <if test="preference != null" >
+        preference,
       </if>
       <if test="email != null" >
         email,
@@ -188,6 +194,9 @@
       <if test="resume != null" >
         #{resume,jdbcType=VARCHAR},
       </if>
+      <if test="preference != null" >
+        #{preference,jdbcType=VARCHAR},
+      </if>
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
       </if>
@@ -198,13 +207,13 @@
         #{wechat,jdbcType=VARCHAR},
       </if>
       <if test="foundedTime != null" >
-        #{foundedTime,jdbcType=TIMESTAMP},
+        #{foundedTime,jdbcType=VARCHAR},
       </if>
       <if test="img != null" >
         #{img,jdbcType=VARCHAR},
       </if>
       <if test="deleted != null" >
-        #{deleted,jdbcType=TINYINT},
+        #{deleted,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -241,6 +250,9 @@
       <if test="record.resume != null" >
         resume = #{record.resume,jdbcType=VARCHAR},
       </if>
+      <if test="record.preference != null" >
+        preference = #{record.preference,jdbcType=VARCHAR},
+      </if>
       <if test="record.email != null" >
         email = #{record.email,jdbcType=VARCHAR},
       </if>
@@ -251,13 +263,13 @@
         wechat = #{record.wechat,jdbcType=VARCHAR},
       </if>
       <if test="record.foundedTime != null" >
-        founded_time = #{record.foundedTime,jdbcType=TIMESTAMP},
+        founded_time = #{record.foundedTime,jdbcType=VARCHAR},
       </if>
       <if test="record.img != null" >
         img = #{record.img,jdbcType=VARCHAR},
       </if>
       <if test="record.deleted != null" >
-        deleted = #{record.deleted,jdbcType=TINYINT},
+        deleted = #{record.deleted,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -278,12 +290,13 @@
       name = #{record.name,jdbcType=VARCHAR},
       position = #{record.position,jdbcType=VARCHAR},
       resume = #{record.resume,jdbcType=VARCHAR},
+      preference = #{record.preference,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       wechat = #{record.wechat,jdbcType=VARCHAR},
-      founded_time = #{record.foundedTime,jdbcType=TIMESTAMP},
+      founded_time = #{record.foundedTime,jdbcType=VARCHAR},
       img = #{record.img,jdbcType=VARCHAR},
-      deleted = #{record.deleted,jdbcType=TINYINT},
+      deleted = #{record.deleted,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -308,6 +321,9 @@
       <if test="resume != null" >
         resume = #{resume,jdbcType=VARCHAR},
       </if>
+      <if test="preference != null" >
+        preference = #{preference,jdbcType=VARCHAR},
+      </if>
       <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
       </if>
@@ -318,13 +334,13 @@
         wechat = #{wechat,jdbcType=VARCHAR},
       </if>
       <if test="foundedTime != null" >
-        founded_time = #{foundedTime,jdbcType=TIMESTAMP},
+        founded_time = #{foundedTime,jdbcType=VARCHAR},
       </if>
       <if test="img != null" >
         img = #{img,jdbcType=VARCHAR},
       </if>
       <if test="deleted != null" >
-        deleted = #{deleted,jdbcType=TINYINT},
+        deleted = #{deleted,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -342,12 +358,13 @@
       name = #{name,jdbcType=VARCHAR},
       position = #{position,jdbcType=VARCHAR},
       resume = #{resume,jdbcType=VARCHAR},
+      preference = #{preference,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       wechat = #{wechat,jdbcType=VARCHAR},
-      founded_time = #{foundedTime,jdbcType=TIMESTAMP},
+      founded_time = #{foundedTime,jdbcType=VARCHAR},
       img = #{img,jdbcType=VARCHAR},
-      deleted = #{deleted,jdbcType=TINYINT},
+      deleted = #{deleted,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

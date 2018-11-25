@@ -73,7 +73,7 @@ public class AdminTeamController extends BaseController {
         try {
             Team team = new Team();
             team.setId(id);
-            team.setDeleted(NumberUtils.INTEGER_ONE);
+            team.setDeleted(NumberUtils.INTEGER_ZERO);
             teamService.updateByPrimaryKeySelective(team);
             return ServerResponse.createBySuccess("删除成功");
         } catch (Exception e) {

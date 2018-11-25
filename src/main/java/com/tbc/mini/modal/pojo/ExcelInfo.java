@@ -3,7 +3,7 @@ package com.tbc.mini.modal.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class CompanyInfo implements Serializable {
+public class ExcelInfo implements Serializable {
     private Integer id;
 
     /**
@@ -11,7 +11,7 @@ public class CompanyInfo implements Serializable {
      *
      * @mbggenerated
      */
-    private String name;
+    private String cmyName;
 
     /**
      * 简介
@@ -19,27 +19,6 @@ public class CompanyInfo implements Serializable {
      * @mbggenerated
      */
     private String intro;
-
-    /**
-     * 标签
-     *
-     * @mbggenerated
-     */
-    private String tags;
-
-    /**
-     * 资金规模
-     *
-     * @mbggenerated
-     */
-    private String money;
-
-    /**
-     * 投资规模
-     *
-     * @mbggenerated
-     */
-    private String singleMoney;
 
     /**
      * 投资领域
@@ -55,12 +34,6 @@ public class CompanyInfo implements Serializable {
      */
     private String rounds;
 
-    private String email;
-
-    private String phone;
-
-    private String wechat;
-
     /**
      * 成立时间
      *
@@ -73,14 +46,42 @@ public class CompanyInfo implements Serializable {
      *
      * @mbggenerated
      */
-    private String img;
+    private String logoImg;
 
     /**
-     * 是否删除
+     * 姓名
      *
      * @mbggenerated
      */
-    private Integer deleted;
+    private String name;
+
+    /**
+     * 职位
+     *
+     * @mbggenerated
+     */
+    private String position;
+
+    /**
+     * 履历
+     *
+     * @mbggenerated
+     */
+    private String resume;
+
+    /**
+     * 投资偏好
+     *
+     * @mbggenerated
+     */
+    private String preference;
+
+    /**
+     * 头像
+     *
+     * @mbggenerated
+     */
+    private String img;
 
     private Date createTime;
 
@@ -88,26 +89,24 @@ public class CompanyInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public CompanyInfo(Integer id, String name, String intro, String tags, String money, String singleMoney, String areas, String rounds, String email, String phone, String wechat, String foundedTime, String img, Integer deleted, Date createTime, Date updateTime) {
+    public ExcelInfo(Integer id, String cmyName, String intro, String areas, String rounds, String foundedTime, String logoImg, String name, String position, String resume, String preference, String img, Date createTime, Date updateTime) {
         this.id = id;
-        this.name = name;
+        this.cmyName = cmyName;
         this.intro = intro;
-        this.tags = tags;
-        this.money = money;
-        this.singleMoney = singleMoney;
         this.areas = areas;
         this.rounds = rounds;
-        this.email = email;
-        this.phone = phone;
-        this.wechat = wechat;
         this.foundedTime = foundedTime;
+        this.logoImg = logoImg;
+        this.name = name;
+        this.position = position;
+        this.resume = resume;
+        this.preference = preference;
         this.img = img;
-        this.deleted = deleted;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
 
-    public CompanyInfo() {
+    public ExcelInfo() {
         super();
     }
 
@@ -119,12 +118,12 @@ public class CompanyInfo implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCmyName() {
+        return cmyName;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setCmyName(String cmyName) {
+        this.cmyName = cmyName == null ? null : cmyName.trim();
     }
 
     public String getIntro() {
@@ -133,30 +132,6 @@ public class CompanyInfo implements Serializable {
 
     public void setIntro(String intro) {
         this.intro = intro == null ? null : intro.trim();
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags == null ? null : tags.trim();
-    }
-
-    public String getMoney() {
-        return money;
-    }
-
-    public void setMoney(String money) {
-        this.money = money == null ? null : money.trim();
-    }
-
-    public String getSingleMoney() {
-        return singleMoney;
-    }
-
-    public void setSingleMoney(String singleMoney) {
-        this.singleMoney = singleMoney == null ? null : singleMoney.trim();
     }
 
     public String getAreas() {
@@ -175,30 +150,6 @@ public class CompanyInfo implements Serializable {
         this.rounds = rounds == null ? null : rounds.trim();
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
-    public String getWechat() {
-        return wechat;
-    }
-
-    public void setWechat(String wechat) {
-        this.wechat = wechat == null ? null : wechat.trim();
-    }
-
     public String getFoundedTime() {
         return foundedTime;
     }
@@ -207,20 +158,52 @@ public class CompanyInfo implements Serializable {
         this.foundedTime = foundedTime == null ? null : foundedTime.trim();
     }
 
+    public String getLogoImg() {
+        return logoImg;
+    }
+
+    public void setLogoImg(String logoImg) {
+        this.logoImg = logoImg == null ? null : logoImg.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position == null ? null : position.trim();
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume == null ? null : resume.trim();
+    }
+
+    public String getPreference() {
+        return preference;
+    }
+
+    public void setPreference(String preference) {
+        this.preference = preference == null ? null : preference.trim();
+    }
+
     public String getImg() {
         return img;
     }
 
     public void setImg(String img) {
         this.img = img == null ? null : img.trim();
-    }
-
-    public Integer getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
     }
 
     public Date getCreateTime() {
@@ -246,19 +229,17 @@ public class CompanyInfo implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
+        sb.append(", cmyName=").append(cmyName);
         sb.append(", intro=").append(intro);
-        sb.append(", tags=").append(tags);
-        sb.append(", money=").append(money);
-        sb.append(", singleMoney=").append(singleMoney);
         sb.append(", areas=").append(areas);
         sb.append(", rounds=").append(rounds);
-        sb.append(", email=").append(email);
-        sb.append(", phone=").append(phone);
-        sb.append(", wechat=").append(wechat);
         sb.append(", foundedTime=").append(foundedTime);
+        sb.append(", logoImg=").append(logoImg);
+        sb.append(", name=").append(name);
+        sb.append(", position=").append(position);
+        sb.append(", resume=").append(resume);
+        sb.append(", preference=").append(preference);
         sb.append(", img=").append(img);
-        sb.append(", deleted=").append(deleted);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append("]");
@@ -276,21 +257,19 @@ public class CompanyInfo implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        CompanyInfo other = (CompanyInfo) that;
+        ExcelInfo other = (ExcelInfo) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getCmyName() == null ? other.getCmyName() == null : this.getCmyName().equals(other.getCmyName()))
             && (this.getIntro() == null ? other.getIntro() == null : this.getIntro().equals(other.getIntro()))
-            && (this.getTags() == null ? other.getTags() == null : this.getTags().equals(other.getTags()))
-            && (this.getMoney() == null ? other.getMoney() == null : this.getMoney().equals(other.getMoney()))
-            && (this.getSingleMoney() == null ? other.getSingleMoney() == null : this.getSingleMoney().equals(other.getSingleMoney()))
             && (this.getAreas() == null ? other.getAreas() == null : this.getAreas().equals(other.getAreas()))
             && (this.getRounds() == null ? other.getRounds() == null : this.getRounds().equals(other.getRounds()))
-            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getWechat() == null ? other.getWechat() == null : this.getWechat().equals(other.getWechat()))
             && (this.getFoundedTime() == null ? other.getFoundedTime() == null : this.getFoundedTime().equals(other.getFoundedTime()))
+            && (this.getLogoImg() == null ? other.getLogoImg() == null : this.getLogoImg().equals(other.getLogoImg()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getPosition() == null ? other.getPosition() == null : this.getPosition().equals(other.getPosition()))
+            && (this.getResume() == null ? other.getResume() == null : this.getResume().equals(other.getResume()))
+            && (this.getPreference() == null ? other.getPreference() == null : this.getPreference().equals(other.getPreference()))
             && (this.getImg() == null ? other.getImg() == null : this.getImg().equals(other.getImg()))
-            && (this.getDeleted() == null ? other.getDeleted() == null : this.getDeleted().equals(other.getDeleted()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
@@ -300,19 +279,17 @@ public class CompanyInfo implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getCmyName() == null) ? 0 : getCmyName().hashCode());
         result = prime * result + ((getIntro() == null) ? 0 : getIntro().hashCode());
-        result = prime * result + ((getTags() == null) ? 0 : getTags().hashCode());
-        result = prime * result + ((getMoney() == null) ? 0 : getMoney().hashCode());
-        result = prime * result + ((getSingleMoney() == null) ? 0 : getSingleMoney().hashCode());
         result = prime * result + ((getAreas() == null) ? 0 : getAreas().hashCode());
         result = prime * result + ((getRounds() == null) ? 0 : getRounds().hashCode());
-        result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
-        result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
-        result = prime * result + ((getWechat() == null) ? 0 : getWechat().hashCode());
         result = prime * result + ((getFoundedTime() == null) ? 0 : getFoundedTime().hashCode());
+        result = prime * result + ((getLogoImg() == null) ? 0 : getLogoImg().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getPosition() == null) ? 0 : getPosition().hashCode());
+        result = prime * result + ((getResume() == null) ? 0 : getResume().hashCode());
+        result = prime * result + ((getPreference() == null) ? 0 : getPreference().hashCode());
         result = prime * result + ((getImg() == null) ? 0 : getImg().hashCode());
-        result = prime * result + ((getDeleted() == null) ? 0 : getDeleted().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;

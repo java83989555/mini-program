@@ -878,52 +878,62 @@ public class CompanyInfoExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andFoundedTimeEqualTo(Date value) {
+        public Criteria andFoundedTimeEqualTo(String value) {
             addCriterion("founded_time =", value, "foundedTime");
             return (Criteria) this;
         }
 
-        public Criteria andFoundedTimeNotEqualTo(Date value) {
+        public Criteria andFoundedTimeNotEqualTo(String value) {
             addCriterion("founded_time <>", value, "foundedTime");
             return (Criteria) this;
         }
 
-        public Criteria andFoundedTimeGreaterThan(Date value) {
+        public Criteria andFoundedTimeGreaterThan(String value) {
             addCriterion("founded_time >", value, "foundedTime");
             return (Criteria) this;
         }
 
-        public Criteria andFoundedTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andFoundedTimeGreaterThanOrEqualTo(String value) {
             addCriterion("founded_time >=", value, "foundedTime");
             return (Criteria) this;
         }
 
-        public Criteria andFoundedTimeLessThan(Date value) {
+        public Criteria andFoundedTimeLessThan(String value) {
             addCriterion("founded_time <", value, "foundedTime");
             return (Criteria) this;
         }
 
-        public Criteria andFoundedTimeLessThanOrEqualTo(Date value) {
+        public Criteria andFoundedTimeLessThanOrEqualTo(String value) {
             addCriterion("founded_time <=", value, "foundedTime");
             return (Criteria) this;
         }
 
-        public Criteria andFoundedTimeIn(List<Date> values) {
+        public Criteria andFoundedTimeLike(String value) {
+            addCriterion("founded_time like", value, "foundedTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoundedTimeNotLike(String value) {
+            addCriterion("founded_time not like", value, "foundedTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoundedTimeIn(List<String> values) {
             addCriterion("founded_time in", values, "foundedTime");
             return (Criteria) this;
         }
 
-        public Criteria andFoundedTimeNotIn(List<Date> values) {
+        public Criteria andFoundedTimeNotIn(List<String> values) {
             addCriterion("founded_time not in", values, "foundedTime");
             return (Criteria) this;
         }
 
-        public Criteria andFoundedTimeBetween(Date value1, Date value2) {
+        public Criteria andFoundedTimeBetween(String value1, String value2) {
             addCriterion("founded_time between", value1, value2, "foundedTime");
             return (Criteria) this;
         }
 
-        public Criteria andFoundedTimeNotBetween(Date value1, Date value2) {
+        public Criteria andFoundedTimeNotBetween(String value1, String value2) {
             addCriterion("founded_time not between", value1, value2, "foundedTime");
             return (Criteria) this;
         }
