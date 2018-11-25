@@ -60,4 +60,10 @@ public class TeamVO {
     private String preference;
 
 
+    /**
+     * 头像
+     *
+     * @mbggenerated
+     */
+    private String img;
 }

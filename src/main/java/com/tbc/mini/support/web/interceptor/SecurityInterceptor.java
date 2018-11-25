@@ -29,6 +29,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
         }
         String userId = JwtFactory.getTokenUserId(token);
         if (userId == null) {
+            log.warn("小程序token拦截器，未通过!!!");
             throw new TokenErrorException();
         }
         return true;

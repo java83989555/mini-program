@@ -30,13 +30,13 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //小程序安全拦截器
         registry.addInterceptor(securityInterceptor)
-                .addPathPatterns("/faced/user/**")
-                .excludePathPatterns(Arrays.asList("/faced/user/login","/admin/**"));
+                .addPathPatterns("/faced/company/**")
+                .addPathPatterns("/faced/team/**");
 
         //后台拦截
         registry.addInterceptor(adminSecurityInterceptor)
                 .addPathPatterns("/admin/**")
-                .excludePathPatterns(Arrays.asList("/faced/user/**","/admin/user/login"));
+                .excludePathPatterns(Arrays.asList("/faced/user/**", "/admin/user/login"));
 
     }
 

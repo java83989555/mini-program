@@ -14,6 +14,7 @@ import java.util.Date;
 public class JwtFactory {
     private static final String BASE_64KEY = "Y24uaXRjYXN0LmFwaXM=";
 
+    //一天
     public static final Long ONE_DAY = 1000 * 60 * 60 * 24L;
 
     /**
