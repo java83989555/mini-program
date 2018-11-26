@@ -27,7 +27,7 @@ public class AdminUserController extends BaseController {
     private static final Integer ORG_ID = 1;
     private static final String ORG_NAME = "百达资本";
 
-    @GetMapping(value = "list")
+    @PostMapping(value = "list")
     public ServerResponse list(String username,String realname,
                                @RequestParam(value = "pageNum",required = false,defaultValue = "1")int pageNum,
                                @RequestParam(value = "pageSize",required = false,defaultValue = "10")int pageSize) {

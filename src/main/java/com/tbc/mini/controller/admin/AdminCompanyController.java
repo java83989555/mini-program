@@ -4,10 +4,14 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tbc.mini.modal.pojo.CompanyInfo;
 import com.tbc.mini.modal.pojo.CompanyInfoExample;
+import com.tbc.mini.modal.pojo.Team;
+import com.tbc.mini.modal.pojo.TeamExample;
 import com.tbc.mini.service.CompanyInfoService;
+import com.tbc.mini.service.TeamService;
 import com.tbc.mini.support.entity.ServerResponse;
 import com.tbc.mini.support.web.base.BaseController;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,19 +33,22 @@ public class AdminCompanyController extends BaseController {
     @Autowired
     private CompanyInfoService companyInfoService;
 
+    @Autowired
+    private TeamService teamService;
+
 
     /**
      * 机构列表
      * @return
      */
-    @GetMapping(value = "list")
+    @PostMapping(value = "list")
     public ServerResponse list(String name,HttpServletRequest request, @RequestParam(value = "pageNum",required = false,defaultValue = "1")int pageNum,
                                @RequestParam(value = "pageSize",required = false,defaultValue = "1")int pageSize) {
         try {
             CompanyInfoExample example = new CompanyInfoExample();
             CompanyInfoExample.Criteria criteria = example.createCriteria();
             if(StringUtils.isNotBlank(name)){
-                criteria.andNameEqualTo(name);
+                criteria.andNameLike("%"+name+"%");
             }
             Page<Object> page = PageHelper.startPage(pageNum, pageSize, true);
             List<CompanyInfo> companyInfoList = companyInfoService.selectByExample(example);
@@ -59,10 +66,19 @@ public class AdminCompanyController extends BaseController {
      * 机构详情
      * @return
      */
-    @GetMapping(value = "detail")
-    public ServerResponse detail(Integer id) {
+    @PostMapping(value = "detail")
+    public ServerResponse detail(Integer id,@RequestParam(value = "pageNum",required = false,defaultValue = "1")int pageNum,
+                                 @RequestParam(value = "pageSize",required = false,defaultValue = "1")int pageSize) {
         try {
-            return companyInfoService.detail(id);
+            TeamExample example = new TeamExample();
+            example.createCriteria().andCompanyIdEqualTo(id).andDeletedEqualTo(NumberUtils.INTEGER_ZERO);
+            Page<Object> page = PageHelper.startPage(pageNum, pageSize, true);
+            List<Team> teamList = teamService.selectByExample(example);
+            Map<String,Object> map = new HashMap<>();
+            map.put("data",teamList);
+            map.put("count",page.getTotal());
+            return ServerResponse.createBySuccess(map);
+            //return companyInfoService.detail(id);
         } catch (Exception e) {
             return super.errorParsing(e);
         }
