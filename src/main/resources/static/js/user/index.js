@@ -137,14 +137,21 @@ function resetDialog() {
 $(function() {
 
     $('#detail_modal').on('click','#modify_password',function () {
-
+        $("#no_password").removeClass('hide');
+        $("#modify_password").addClass('hide');
         $(".password_div").removeClass('hide');
+    });
+    $('#detail_modal').on('click','#no_password',function () {
+        $("#no_password").addClass('hide');
+        $("#modify_password").removeClass('hide');
+        $(".password_div").addClass('hide');
     });
 
     $('#add-item').on('click', function () {
         window.mode = 'add';
         $("#detail_modal").modal("show");
         $(".btn_div").addClass('hide');
+        $("#no_password").addClass('hide');
         $(".password_div").removeClass('hide');
         resetDialog();
     });
