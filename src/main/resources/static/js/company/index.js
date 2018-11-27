@@ -1,4 +1,4 @@
-var  handle, tableEvent, dataLoad_1;
+var  handle,subStr, tableEvent, dataLoad_1;
 
 dataLoad_1 = function(params) {
     var p;
@@ -39,6 +39,13 @@ handle = function (value, row, index) {
 		,"</ul>", "</div>"].join("");
 };
 
+
+subStr = function (value, row, index) {
+	if(value && value.length>35){
+		return value.substring(0,35)+' ......';
+	}
+	return value;
+};
 
 
 

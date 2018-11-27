@@ -37,8 +37,7 @@
                   </button>
                   <button type="button" class="btn btn-white" modal="reset" id="clear"><span class="glyphicon glyphicon-remove"></span><span>&nbsp;清除查询条件&nbsp;</span>
                   </button>
-                  </button>
-                  <button type="button" class="btn btn-primary pull-right" id="import"><span>导入数据</span></button>
+                  <button type="button" class="btn btn-primary pull-right" id="import"><span class="glyphicon glyphicon-import">导入数据</span></button>
                 </div>
               </div>
             </form>
@@ -50,8 +49,8 @@
               <thead>
                 <tr>
                   <th data-field="name">机构名称</th>
-                  <th data-field="areas">投资领域</th>
-                  <th data-field="rounds">投资轮次</th>
+                  <th data-field="areas" data-formatter="subStr">投资领域</th>
+                  <th data-field="rounds" data-formatter="subStr">投资轮次</th>
                   <th data-field="foundedTime">成立时间</th>
                   <th data-switchable="false" data-formatter="handle" data-events="tableEvent">操作</th>
                 </tr>

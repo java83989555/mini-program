@@ -35,7 +35,7 @@ public interface ZaUserService extends BaseService<ZaUser, ZaUserExample> {
      * @param zaUser
      * @return
      */
-    public ServerResponse<ZaUser> createZaUser(ZaUser zaUser);
+    public ServerResponse<String> createZaUser(ZaUser zaUser);
 
     /**
      * 修改用户

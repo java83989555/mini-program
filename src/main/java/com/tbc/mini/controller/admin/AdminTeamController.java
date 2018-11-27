@@ -1,13 +1,19 @@
 package com.tbc.mini.controller.admin;
 
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.tbc.mini.modal.pojo.Team;
+import com.tbc.mini.modal.pojo.TeamExample;
 import com.tbc.mini.service.TeamService;
 import com.tbc.mini.support.entity.ServerResponse;
 import com.tbc.mini.support.web.base.BaseController;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -26,6 +32,27 @@ public class AdminTeamController extends BaseController {
 
 
     /**
+     * 投资人列表
+     * @return
+     */
+    @PostMapping(value = "list")
+    public ServerResponse list(Integer companyId,@RequestParam(value = "page",required = false,defaultValue = "1")int page,
+                                 @RequestParam(value = "pageSize",required = false,defaultValue = "1")int pageSize) {
+        try {
+            TeamExample example = new TeamExample();
+            example.createCriteria().andCompanyIdEqualTo(companyId);
+            Page<Object> objectPage = PageHelper.startPage(page, pageSize, true);
+            List<Team> teamList = teamService.selectByExample(example);
+            Map<String,Object> map = new HashMap<>();
+            map.put("data",teamList);
+            map.put("count",objectPage.getTotal());
+            return ServerResponse.createBySuccess(map);
+        } catch (Exception e) {
+            return super.errorParsing(e);
+        }
+    }
+
+    /**
      * 新增
      * @param team
      * @return
@@ -36,7 +63,6 @@ public class AdminTeamController extends BaseController {
             return ServerResponse.createByErrorMessage("参数错误");
         }
         try {
-            team.setDeleted(NumberUtils.INTEGER_ZERO);
             teamService.insert(team);
             return ServerResponse.createBySuccess("新增成功");
         } catch (Exception e) {
@@ -71,10 +97,7 @@ public class AdminTeamController extends BaseController {
     @PostMapping(value = "delete")
     public ServerResponse delete(Integer id) {
         try {
-            Team team = new Team();
-            team.setId(id);
-            team.setDeleted(NumberUtils.INTEGER_ZERO);
-            teamService.updateByPrimaryKeySelective(team);
+            teamService.deleteByPrimaryKey(id);
             return ServerResponse.createBySuccess("删除成功");
         } catch (Exception e) {
             return super.errorParsing(e);

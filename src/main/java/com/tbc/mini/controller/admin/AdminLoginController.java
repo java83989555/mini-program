@@ -78,28 +78,40 @@ public class AdminLoginController extends BaseController {
         List<MenuVo> menuVoList = new ArrayList<>();
         MenuVo vo = new MenuVo();
         vo.setChecked(false);
-        vo.setMenuName("系统管理");
+        vo.setMenuName("用户管理");
         vo.setMenuType("URL");
-        vo.setLogoTag("icon-zhichi");
+        vo.setLogoTag("icon-kehuguanli");
         vo.setOrders(1L);
         vo.setUrl("/");
-        List<MenuVo> detailList = new ArrayList<>();
+        List<MenuVo> detailList1 = new ArrayList<>();
         MenuVo detail1 = new MenuVo();
         detail1.setChecked(false);
         detail1.setMenuName("用户管理");
         detail1.setMenuType("URL");
         detail1.setOrders(1L);
         detail1.setUrl("user/index.html");
+        detailList1.add(detail1);
+        List<MenuVo> detailList2 = new ArrayList<>();
+        vo.setSysMenuList(detailList1);
+
+        MenuVo vo1 = new MenuVo();
+        vo1.setChecked(false);
+        vo1.setMenuName("机构管理");
+        vo1.setMenuType("URL");
+        vo1.setLogoTag("icon-zhichi");
+        vo1.setOrders(2L);
+        vo1.setUrl("/");
         MenuVo detail2 = new MenuVo();
         detail2.setChecked(false);
         detail2.setMenuName("机构管理");
         detail2.setMenuType("URL");
-        detail2.setOrders(2L);
+        detail2.setOrders(1L);
         detail2.setUrl("company/index.html");
-        detailList.add(detail1);
-        detailList.add(detail2);
-        vo.setSysMenuList(detailList);
+        detailList2.add(detail2);
+        vo1.setSysMenuList(detailList2);
+
         menuVoList.add(vo);
+        menuVoList.add(vo1);
         return ServerResponse.createBySuccess(menuVoList);
     }
 

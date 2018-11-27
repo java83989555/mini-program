@@ -1,18 +1,16 @@
-var  handle, tableEvent, dataLoad_1;
+var level,status_fmt, handle, tableEvent, dataLoad_1;
 var args = comn.getArgs();
-var companyId = args.id;
-var companyName = args.title;
 
 dataLoad_1 = function(params) {
     var p;
     p = params.data;
     return comn.ajax({
-        url: interUrl.adminTeam.list,
-        data: $.extend({companyId:companyId}, p),
+        url: interUrl.adminUser.list,
+        data: $.extend($("#searchForm").values(), p),
         success: function(res) {
             params.success({
-                'total': res.data.count,
-                'rows': res.data.data
+                'total': res.data.total,
+                'rows': res.data.list
             });
             params.complete();
             return typeof callback === "function" ? callback(res) : void 0;
@@ -29,14 +27,50 @@ tableEvent = {
         $("#detail_modal").modal("show");
         $('#teamForm').values(item);
     },
-    "click .delete": function(e, a, item, index) {
+    "click .stop": function(e, a, item, index) {
         comn.ajax({
-            url: interUrl.adminTeam.delete,
+            url: interUrl.adminUser.stop,
             data: {id:item.id},
             success: function(res) {
                 if(res.code == 1){
                     tip({
-                        content:'删除成功'
+                        content:res.data
+                    });
+                    $("#table").bootstrapTable("refresh", {url: "..."});
+                }else{
+                    tip({
+                        content:res.msg
+                    });
+                }
+            }
+        });
+    },
+    "click .start": function(e, a, item, index) {
+        comn.ajax({
+            url: interUrl.adminUser.start,
+            data: {id:item.id},
+            success: function(res) {
+                if(res.code == 1){
+                    tip({
+                        content:res.data
+                    });
+                    $("#table").bootstrapTable("refresh", {url: "..."});
+                }else{
+                    tip({
+                        content:res.msg
+                    });
+                }
+            }
+        });
+    },
+    "click .delete": function(e, a, item, index) {
+        comn.ajax({
+            url: interUrl.adminUser.delete,
+            data: {id:item.id},
+            success: function(res) {
+                if(res.code == 1){
+                    tip({
+                        content:res.data
                     });
                     $("#table").bootstrapTable("refresh", {url: "..."});
                 }else{
@@ -50,6 +84,12 @@ tableEvent = {
 };
 
 handle = function (value, row, index) {
+    var html = "";
+    if(row.status == 2){
+        html = "<li><a class='start'>启用</a></li>"
+    }else if(row.status == 1){
+        html = "<li><a class='stop'>停用</a></li>"
+    }
     return ["<div class='btn-group btn-group-xs'>",
 		"<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>操作",
 		  "<span class='caret'></span>",
@@ -57,35 +97,55 @@ handle = function (value, row, index) {
 		"</button>",
 		"<ul class='dropdown-menu' role='menu'>",
 		"<li><a class='update'>修改</a></li>",
+        html,
         "<li><a class='delete'>删除</a></li>",
         "</ul>", "</div>"].join("");
 };
 
+level = function (value, row, index) {
+    if(value == 2){
+        return '管理员';
+    }else{
+        return '普通用户';
+    }
+};
+
+status_fmt = function (value, row, index) {
+    if(value == 2){
+        return '已停用';
+    }else{
+        return '已启用';
+    }
+};
 
 function resetDialog() {
     if(window.mode == 'add'){
-        $("#name").attr('readonly',false);
-        $('#detail_modal .modal-header .modal-title').html('新增投资人');
+        $("#username").attr('readonly',false);
+        $('#detail_modal .modal-header .modal-title').html('新增用户');
 
     }
     if(window.mode == 'modify'){
-        $("#name").attr('readonly',true);
-        $('#detail_modal .modal-header .modal-title').html('修改投资人');
-
+        $("#username").attr('readonly',true);
+        $(".btn_div").removeClass('hide');
+        $(".password_div").addClass('hide');
+        $('#detail_modal .modal-header .modal-title').html('修改用户');
     }
 }
 
 
 
 $(function() {
-    //标题赋值
-    $("#flowTitle").html(companyName);
+
+    $('#detail_modal').on('click','#modify_password',function () {
+
+        $(".password_div").removeClass('hide');
+    });
 
     $('#add-item').on('click', function () {
         window.mode = 'add';
         $("#detail_modal").modal("show");
-        $("#companyId").val(companyId);
-        $("#companyName").val(companyName);
+        $(".btn_div").addClass('hide');
+        $(".password_div").removeClass('hide');
         resetDialog();
     });
 
@@ -94,9 +154,9 @@ $(function() {
         $('#teamForm').validate();
         if( $('#teamForm').valid() == true){
             var data = $('#teamForm').values();
-            var url = interUrl.adminTeam.add;
+            var url = interUrl.adminUser.add;
             if(window.mode == 'modify'){
-                url = interUrl.adminTeam.update;
+                url = interUrl.adminUser.update;
             }
             comn.ajax({
                 url: url,

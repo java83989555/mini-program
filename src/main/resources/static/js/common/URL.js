@@ -22,6 +22,7 @@ var interUrl = {
             delete:"admin/company/delete"
         },
         adminTeam:{
+            list:"admin/team/list",
             add:"admin/team/add",
             update:"admin/team/update",
             delete:"admin/team/delete"

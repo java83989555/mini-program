@@ -39,7 +39,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
         CompanyInfo info = companyInfoMapper.selectByPrimaryKey(id);
         BeanUtils.copyProperties(info,vo);
         TeamExample example = new TeamExample();
-        example.createCriteria().andCompanyIdEqualTo(id).andDeletedEqualTo(NumberUtils.INTEGER_ZERO);
+        example.createCriteria().andCompanyIdEqualTo(id);
         List<Team> teamList = teamMapper.selectByExample(example);
         vo.setTeamList(teamList);
         return ServerResponse.createBySuccess(vo);
@@ -50,7 +50,6 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
     public ServerResponse<CompanyInfo> addCompany(CompanyInfo info) {
 
         verifyCompany(info);
-        info.setDeleted(NumberUtils.INTEGER_ZERO);
         int count = companyInfoMapper.insert(info);
         if(count > 0){
             return ServerResponse.createBySuccess(info);
@@ -74,16 +73,12 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
 
     @Override
     public ServerResponse<String> deleteCompany(Integer id) {
-        CompanyInfo info = new CompanyInfo();
-        info.setDeleted(NumberUtils.INTEGER_ONE);
-        info.setId(id);
-        int count = companyInfoMapper.updateByPrimaryKeySelective(info);
+
+        int count = companyInfoMapper.deleteByPrimaryKey(id);
         if(count>0){
             TeamExample example = new TeamExample();
             example.createCriteria().andCompanyIdEqualTo(id);
-            Team team = new Team();
-            team.setDeleted(NumberUtils.INTEGER_ZERO);
-            teamMapper.updateByExampleSelective(team,example);
+            teamMapper.deleteByExample(example);
         }
         return ServerResponse.createBySuccess("机构删除成功");
     }
@@ -96,7 +91,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
     private CompanyInfo checkname(String name){
         CompanyInfo info = null;
         CompanyInfoExample example = new CompanyInfoExample();
-        example.createCriteria().andNameEqualTo(name).andDeletedEqualTo(NumberUtils.INTEGER_ZERO);
+        example.createCriteria().andNameEqualTo(name);
         List<CompanyInfo> userList = companyInfoMapper.selectByExample(example);
         if(null != userList && !userList.isEmpty()){
              info = userList.get(0);
