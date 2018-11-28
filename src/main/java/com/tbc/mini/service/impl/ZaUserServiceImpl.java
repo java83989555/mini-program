@@ -77,6 +77,7 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
             criteria.andRealnameLike("%"+realname+"%");
         }
         criteria.andStatusNotEqualTo(ModelConstant.ZaUserStatus.DELETE.getStatus());
+        example.setOrderByClause("id desc");
         List<ZaUser> userList = zaUserMapper.selectByExample(example);
         userList.forEach(user ->{
             user.setPassword(null);

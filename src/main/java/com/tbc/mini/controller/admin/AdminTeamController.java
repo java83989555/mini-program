@@ -42,6 +42,7 @@ public class AdminTeamController extends BaseController {
             TeamExample example = new TeamExample();
             example.createCriteria().andCompanyIdEqualTo(companyId);
             Page<Object> objectPage = PageHelper.startPage(page, pageSize, true);
+            example.setOrderByClause("id desc");
             List<Team> teamList = teamService.selectByExample(example);
             Map<String,Object> map = new HashMap<>();
             map.put("data",teamList);

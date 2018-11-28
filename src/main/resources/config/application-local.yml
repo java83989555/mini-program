@@ -5,3 +5,9 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
       username: root
       password: root
+
+uploadPath:
+  excel: /Users/fuyunhao/Download/file/excel
+
+downloadPath:
+  excel: /Users/fuyunhao/Download/file/template/data_import_template.xlsx

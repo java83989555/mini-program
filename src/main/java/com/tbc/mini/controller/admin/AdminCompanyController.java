@@ -4,10 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tbc.mini.modal.pojo.CompanyInfo;
 import com.tbc.mini.modal.pojo.CompanyInfoExample;
-import com.tbc.mini.modal.pojo.Team;
-import com.tbc.mini.modal.pojo.TeamExample;
 import com.tbc.mini.service.CompanyInfoService;
-import com.tbc.mini.service.TeamService;
 import com.tbc.mini.support.entity.ServerResponse;
 import com.tbc.mini.support.web.base.BaseController;
 import org.apache.commons.lang3.StringUtils;
@@ -32,8 +29,6 @@ public class AdminCompanyController extends BaseController {
     @Autowired
     private CompanyInfoService companyInfoService;
 
-    @Autowired
-    private TeamService teamService;
 
 
     /**
@@ -50,6 +45,7 @@ public class AdminCompanyController extends BaseController {
                 criteria.andNameLike("%"+name+"%");
             }
             Page<Object> objectPage = PageHelper.startPage(page, pageSize, true);
+            example.setOrderByClause("id desc");
             List<CompanyInfo> companyInfoList = companyInfoService.selectByExample(example);
             Map<String,Object> map = new HashMap<>();
             map.put("data",companyInfoList);

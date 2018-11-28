@@ -56,6 +56,47 @@ $(function() {
     $(document).on("click", "#tab-search", function() {
     	$("#table").bootstrapTable("refresh", {url: "..."});
     })
+    $("#uploadfile").click(function() {
+        var filename = $("#filename").val();
+        if (filename == "") {
+            alert("请选择文件！");
+            return false;
+        }
+        ajaxFileUpload();
+    });
 
+    $("#download").click(function(){
+        location.href=interUrl.basic+interUrl.adminExcel.export;
+    });
 
+    $("#filename").fileinput({
+        showRemove:false,
+        showPreview: false,
+        showUpload : false,
+        language : 'zh',
+        allowFileExtensions : ['xls','xlsx']
+    });
 });
+
+function ajaxFileUpload() {
+    $("#formid").ajaxSubmit({
+        type : "POST",
+        url : interUrl.basic+interUrl.adminExcel.import,
+        dataType : 'json',
+        success : function(data) {
+            if (data.code == 1) {
+                tip({
+                    content: "导入成功!"
+                });
+                $("#importModal").modal('hide');
+                $("#table").bootstrapTable("refresh", {
+                    url : "..."
+                });
+
+            }else{
+                $('#msg_dialog_content').html(data.msg);
+                $("#msg_dialog").modal('show');
+            }
+        }
+    });
+}

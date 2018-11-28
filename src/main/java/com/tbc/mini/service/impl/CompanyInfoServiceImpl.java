@@ -10,7 +10,6 @@ import com.tbc.mini.support.service.base.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import com.tbc.mini.mapper.CompanyInfoMapper;
 import com.tbc.mini.service.CompanyInfoService;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
