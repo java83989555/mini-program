@@ -48,7 +48,6 @@ public class CompanyInfoController extends BaseController {
                 companyInfoExample.or(criteria2);
                 companyInfoExample.or(criteria3);
             }
-            companyInfoExample.setOrderByClause("id desc");
             List<CompanyInfo> companyInfoList = companyInfoService.selectByExampleForStartPage(companyInfoExample, page, size);
             List<CompanyInfoVO> companyInfoVOList = new ArrayList<>();
             companyInfoList.forEach(companyInfo -> companyInfoVOList.add(CompanyInfoVO.assemble(companyInfo)));
