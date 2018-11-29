@@ -14,6 +14,7 @@ import com.tbc.mini.support.service.base.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import com.tbc.mini.mapper.CompanyInfoMapper;
 import com.tbc.mini.service.CompanyInfoService;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -79,7 +80,6 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
 
     @Override
     public ServerResponse<String> deleteCompany(Integer id) {
-<<<<<<< HEAD
         CompanyInfo info = new CompanyInfo();
         info.setDeleted(NumberUtils.INTEGER_ONE);
         info.setId(id);
@@ -90,14 +90,6 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
             Team team = new Team();
             team.setDeleted(NumberUtils.INTEGER_ZERO);
             teamMapper.updateByExampleSelective(team, example);
-=======
-
-        int count = companyInfoMapper.deleteByPrimaryKey(id);
-        if(count>0){
-            TeamExample example = new TeamExample();
-            example.createCriteria().andCompanyIdEqualTo(id);
-            teamMapper.deleteByExample(example);
->>>>>>> 3a501feb25a07db6609ddc16813cc13c3e4e76a0
         }
         return ServerResponse.createBySuccess("机构删除成功");
     }
