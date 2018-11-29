@@ -46,7 +46,7 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
 
         ServerResponse<ZaUser> validResponse = this.checkUsername(username);
         if (!validResponse.isSuccess()) {
-            return ServerResponse.createByErrorMessage("用户名不存在");
+            return validResponse;
         }
         //Filter DEAD ZaUser
         ZaUser dbUser = validResponse.getData();
@@ -71,13 +71,17 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
         ZaUserExample example = new ZaUserExample();
         ZaUserExample.Criteria criteria = example.createCriteria();
         if (StringUtils.isNotBlank(username)) {
-            criteria.andUsernameLike(username);
+            criteria.andUsernameLike("%"+username+"%");
         }
         if (StringUtils.isNotBlank(realname)) {
-            criteria.andUsernameLike(realname);
+            criteria.andRealnameLike("%"+realname+"%");
         }
         criteria.andStatusNotEqualTo(ModelConstant.ZaUserStatus.DELETE.getStatus());
+        example.setOrderByClause("id desc");
         List<ZaUser> userList = zaUserMapper.selectByExample(example);
+        userList.forEach(user ->{
+            user.setPassword(null);
+        });
         PageInfo pageResult = new PageInfo(userList);
         pageResult.setList(userList);
         return ServerResponse.createBySuccess(pageResult);
@@ -85,17 +89,17 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
 
 
     @Override
-    public ServerResponse<ZaUser> createZaUser(ZaUser zaUser) {
+    public ServerResponse<String> createZaUser(ZaUser zaUser) {
         if (zaUser == null || StringUtils.isEmpty(zaUser.getUsername()) || StringUtils.isEmpty(zaUser.getPassword())) {
             return ServerResponse.createByErrorMessage("用户名和密码不能为空！");
         }
         ServerResponse validResponse = this.checkUsername(zaUser.getUsername());
-        if (!validResponse.isSuccess()) {
-            return validResponse;
+        if (validResponse.isSuccess()) {
+            return ServerResponse.createByErrorMessage("用户名已存在！");
         }
         Integer rs = zaUserMapper.insert(encryptPassword(zaUser));
         if (rs != null && rs > 0) {
-            return ServerResponse.createBySuccess(zaUser);
+            return ServerResponse.createBySuccess("新增用户成功");
         } else {
             return ServerResponse.createByErrorMessage("创建失败");
         }
@@ -103,8 +107,10 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
 
     @Override
     public ServerResponse<String> modifyZaUser(ZaUser zaUser) {
-        if (zaUser.getPassword() != null) {
+        if (StringUtils.isNotBlank(zaUser.getPassword())) {
             encryptPassword(zaUser);
+        }else{
+            zaUser.setPassword(null);
         }
         Integer rs = zaUserMapper.updateByPrimaryKeySelective(zaUser);
         if (rs != null && rs > 0) {
@@ -128,7 +134,7 @@ public class ZaUserServiceImpl extends BaseServiceImpl<ZaUserMapper, ZaUser, ZaU
         if (null != userList && !userList.isEmpty()) {
             return ServerResponse.createBySuccess(userList.get(0));
         }
-        return ServerResponse.createByErrorMessage("用户名已存在");
+        return ServerResponse.createByErrorMessage("用户名不存在");
     }
 
     /**

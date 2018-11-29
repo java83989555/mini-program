@@ -30,24 +30,26 @@ public class AdminCompanyController extends BaseController {
     private CompanyInfoService companyInfoService;
 
 
+
     /**
      * 机构列表
      * @return
      */
-    @GetMapping(value = "list")
-    public ServerResponse list(String name,HttpServletRequest request, @RequestParam(value = "pageNum",required = false,defaultValue = "1")int pageNum,
+    @PostMapping(value = "list")
+    public ServerResponse list(String name,HttpServletRequest request, @RequestParam(value = "page",required = false,defaultValue = "1")int page,
                                @RequestParam(value = "pageSize",required = false,defaultValue = "1")int pageSize) {
         try {
             CompanyInfoExample example = new CompanyInfoExample();
             CompanyInfoExample.Criteria criteria = example.createCriteria();
             if(StringUtils.isNotBlank(name)){
-                criteria.andNameEqualTo(name);
+                criteria.andNameLike("%"+name+"%");
             }
-            Page<Object> page = PageHelper.startPage(pageNum, pageSize, true);
+            Page<Object> objectPage = PageHelper.startPage(page, pageSize, true);
+            example.setOrderByClause("id desc");
             List<CompanyInfo> companyInfoList = companyInfoService.selectByExample(example);
             Map<String,Object> map = new HashMap<>();
             map.put("data",companyInfoList);
-            map.put("count",page.getTotal());
+            map.put("count",objectPage.getTotal());
             return ServerResponse.createBySuccess(map);
         } catch (Exception e) {
             return super.errorParsing(e);
@@ -59,9 +61,10 @@ public class AdminCompanyController extends BaseController {
      * 机构详情
      * @return
      */
-    @GetMapping(value = "detail")
+    @PostMapping(value = "detail")
     public ServerResponse detail(Integer id) {
         try {
+
             return companyInfoService.detail(id);
         } catch (Exception e) {
             return super.errorParsing(e);

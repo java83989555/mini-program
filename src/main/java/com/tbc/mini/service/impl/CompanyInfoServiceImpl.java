@@ -14,7 +14,6 @@ import com.tbc.mini.support.service.base.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import com.tbc.mini.mapper.CompanyInfoMapper;
 import com.tbc.mini.service.CompanyInfoService;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,7 +45,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
         CompanyInfo info = companyInfoMapper.selectByPrimaryKey(id);
         BeanUtils.copyProperties(info, vo);
         TeamExample example = new TeamExample();
-        example.createCriteria().andCompanyIdEqualTo(id).andDeletedEqualTo(NumberUtils.INTEGER_ZERO);
+        example.createCriteria().andCompanyIdEqualTo(id);
         List<Team> teamList = teamMapper.selectByExample(example);
         vo.setTeamList(teamList);
         return ServerResponse.createBySuccess(vo);
@@ -57,7 +56,6 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
     public ServerResponse<CompanyInfo> addCompany(CompanyInfo info) {
 
         verifyCompany(info);
-        info.setDeleted(NumberUtils.INTEGER_ZERO);
         int count = companyInfoMapper.insert(info);
         if (count > 0) {
             return ServerResponse.createBySuccess(info);
@@ -81,6 +79,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
 
     @Override
     public ServerResponse<String> deleteCompany(Integer id) {
+<<<<<<< HEAD
         CompanyInfo info = new CompanyInfo();
         info.setDeleted(NumberUtils.INTEGER_ONE);
         info.setId(id);
@@ -91,6 +90,14 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
             Team team = new Team();
             team.setDeleted(NumberUtils.INTEGER_ZERO);
             teamMapper.updateByExampleSelective(team, example);
+=======
+
+        int count = companyInfoMapper.deleteByPrimaryKey(id);
+        if(count>0){
+            TeamExample example = new TeamExample();
+            example.createCriteria().andCompanyIdEqualTo(id);
+            teamMapper.deleteByExample(example);
+>>>>>>> 3a501feb25a07db6609ddc16813cc13c3e4e76a0
         }
         return ServerResponse.createBySuccess("机构删除成功");
     }
@@ -116,7 +123,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
     private CompanyInfo checkname(String name) {
         CompanyInfo info = null;
         CompanyInfoExample example = new CompanyInfoExample();
-        example.createCriteria().andNameEqualTo(name).andDeletedEqualTo(NumberUtils.INTEGER_ZERO);
+        example.createCriteria().andNameEqualTo(name);
         List<CompanyInfo> userList = companyInfoMapper.selectByExample(example);
         if (null != userList && !userList.isEmpty()) {
             info = userList.get(0);

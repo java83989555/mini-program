@@ -23,7 +23,7 @@ tip = null;
       "paginationNextText": "下一页",
       "paginationLastText": "最后一页",
       "clickToSelect": true,
-      "height": "500"
+      "height": "450"
     },
     toUrl: function(o) {
       var base;

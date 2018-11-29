@@ -6,7 +6,11 @@ spring:
       username: root
       password: root
 
+uploadPath:
+  excel: /home/data/file/excel
 
+downloadPath:
+  excel: /home/data/file/template/data_import_template.xlsx
 
 
 

@@ -1,6 +1,10 @@
 var interUrl = {
         mockList: "",
         basic: "/",
+        adminExcel:{
+           import:"admin/excel/import",
+           export:"admin/excel/download"
+        },
         adminUser:{
             login:"admin/user/login",
             logout:"admin/user/logout",
@@ -22,6 +26,7 @@ var interUrl = {
             delete:"admin/company/delete"
         },
         adminTeam:{
+            list:"admin/team/list",
             add:"admin/team/add",
             update:"admin/team/update",
             delete:"admin/team/delete"

@@ -27,13 +27,13 @@ public class AdminUserController extends BaseController {
     private static final Integer ORG_ID = 1;
     private static final String ORG_NAME = "百达资本";
 
-    @GetMapping(value = "list")
+    @PostMapping(value = "list")
     public ServerResponse list(String username,String realname,
-                               @RequestParam(value = "pageNum",required = false,defaultValue = "1")int pageNum,
+                               @RequestParam(value = "page",required = false,defaultValue = "1")int page,
                                @RequestParam(value = "pageSize",required = false,defaultValue = "10")int pageSize) {
 
         try {
-            return zaUserService.getUserList(username,realname,pageNum,pageSize);
+            return zaUserService.getUserList(username,realname,page,pageSize);
         } catch (Exception e) {
             return super.errorParsing(e);
         }
@@ -57,7 +57,7 @@ public class AdminUserController extends BaseController {
                 user.setOrgId(ORG_ID);
             }
             if(StringUtils.isBlank(user.getOrgName())){
-                user.setUsername(ORG_NAME);
+                user.setOrgName(ORG_NAME);
             }
             user.setRegisterTime(new Date());
             return zaUserService.createZaUser(user);

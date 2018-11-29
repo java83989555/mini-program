@@ -33,9 +33,16 @@
 		<javassist.version>3.23.1-GA</javassist.version>
 		<shiro.vesion>1.2.2</shiro.vesion>
 		<springloaded.version>1.2.6.RELEASE</springloaded.version>
+		<commons.io.version>2.4</commons.io.version>
 	</properties>
 
 	<dependencies>
+		<!--IOUtil-->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons.io.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
