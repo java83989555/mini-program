@@ -43,4 +43,5 @@ public interface CompanyInfoService extends BaseService<CompanyInfo, CompanyInfo
      */
     public ServerResponse<String> deleteCompany(Integer id);
 
+    ServerResponse selectByKeyword(String keyword, int page, int size);
 }

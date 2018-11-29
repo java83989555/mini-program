@@ -40,22 +40,7 @@ public class CompanyInfoController extends BaseController {
                                @RequestParam(value = "size", defaultValue = "20") int size,
                                @RequestParam(value = "keyword", required = false) String keyword) {
         try {
-            CompanyInfoExample companyInfoExample = new CompanyInfoExample();
-            if (StringUtils.isNotBlank(keyword)) {
-                companyInfoExample.createCriteria().andNameLike("%" + keyword + "%");
-                CompanyInfoExample.Criteria criteria2 = companyInfoExample.createCriteria().andAreasLike("%" + keyword + "%");
-                CompanyInfoExample.Criteria criteria3 = companyInfoExample.createCriteria().andRoundsLike("%" + keyword + "%");
-                companyInfoExample.or(criteria2);
-                companyInfoExample.or(criteria3);
-            }
-            List<CompanyInfo> companyInfoList = companyInfoService.selectByExampleForStartPage(companyInfoExample, page, size);
-            List<CompanyInfoVO> companyInfoVOList = new ArrayList<>();
-            companyInfoList.forEach(companyInfo -> companyInfoVOList.add(CompanyInfoVO.assemble(companyInfo)));
-            int count = companyInfoService.countByExample(companyInfoExample);
-            HashMap<String, Object> result = new HashMap<>(16);
-            result.put("total", count);
-            result.put("rows", companyInfoVOList);
-            return ServerResponse.createBySuccess(result);
+            return companyInfoService.selectByKeyword(keyword, page, size);
         } catch (Exception e) {
             return super.errorParsing(e);
         }

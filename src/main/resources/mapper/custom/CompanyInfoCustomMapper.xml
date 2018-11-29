@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tbc.mini.mapper.custom.CompanyInfoCustomMapper">
+    <sql id="Base_Column_List">
+    ci.id, ci.name, ci.intro, ci.tags, ci.money, ci.single_money, ci.areas, ci.rounds, ci.email, ci.phone, ci.wechat,
+    ci.founded_time, ci.img, ci.deleted, ci.create_time, ci.update_time
+  </sql>
+    <resultMap id="BaseResultMap" type="com.tbc.mini.modal.pojo.CompanyInfo">
+        <constructor>
+            <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="intro" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="tags" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="money" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="single_money" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="areas" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="rounds" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="wechat" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="founded_time" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="img" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="deleted" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    <select id="selectByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from company_info ci LEFT JOIN team t on ci.id = t.company_id
+        <where>
+            <if test="keyword != null">
+                ci.name like concat(concat("%",#{keyword}),"%") or
+                ci.areas LIKE concat(concat("%",#{keyword}),"%") or
+                ci.rounds LIKE concat(concat("%",#{keyword}),"%") or
+                t.name like concat(concat("%",#{keyword}),"%")
+            </if>
+        </where>
+        GROUP BY ci.id
+    </select>
+</mapper>
