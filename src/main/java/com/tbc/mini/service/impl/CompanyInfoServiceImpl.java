@@ -80,16 +80,11 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
 
     @Override
     public ServerResponse<String> deleteCompany(Integer id) {
-        CompanyInfo info = new CompanyInfo();
-        info.setDeleted(NumberUtils.INTEGER_ONE);
-        info.setId(id);
-        int count = companyInfoMapper.updateByPrimaryKeySelective(info);
-        if (count > 0) {
+        int count = companyInfoMapper.deleteByPrimaryKey(id);
+        if(count>0){
             TeamExample example = new TeamExample();
             example.createCriteria().andCompanyIdEqualTo(id);
-            Team team = new Team();
-            team.setDeleted(NumberUtils.INTEGER_ZERO);
-            teamMapper.updateByExampleSelective(team, example);
+            teamMapper.deleteByExample(example);
         }
         return ServerResponse.createBySuccess("机构删除成功");
     }

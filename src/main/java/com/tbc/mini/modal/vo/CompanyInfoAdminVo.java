@@ -5,6 +5,11 @@ import com.tbc.mini.modal.pojo.Team;
 
 import java.util.List;
 
+/**
+ * @author fyh
+ * @createTime 2018年11月17日 16:41
+ * @description 后台公司列表视图对象
+ */
 public class CompanyInfoAdminVo extends CompanyInfo {
 
     private List<Team> teamList;
