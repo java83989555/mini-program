@@ -11,3 +11,6 @@ uploadPath:
 
 downloadPath:
   excel: /Users/fuyunhao/Download/file/template/data_import_template.xlsx
+
+imgUrl:
+  prefix: http://image.baidacapital.com

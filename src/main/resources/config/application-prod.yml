@@ -12,5 +12,8 @@ uploadPath:
 downloadPath:
   excel: /home/data/file/template/data_import_template.xlsx
 
+imgUrl:
+  prefix: http://image.baidacapital.com
+
 
 

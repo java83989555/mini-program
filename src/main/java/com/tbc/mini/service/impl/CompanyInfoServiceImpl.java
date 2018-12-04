@@ -14,7 +14,6 @@ import com.tbc.mini.support.service.base.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import com.tbc.mini.mapper.CompanyInfoMapper;
 import com.tbc.mini.service.CompanyInfoService;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -90,11 +89,15 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfoMapper, C
     }
 
     @Override
-    public ServerResponse selectByKeyword(String keyword, int page, int size) {
+    public ServerResponse selectByKeyword(String keyword,String imgUrlPrefix, int page, int size) {
         Page<Object> objects = PageHelper.startPage(page, size, true);
         List<CompanyInfo> companyInfoList = companyInfoCustomMapper.selectByKeyword(keyword);
         List<CompanyInfoVO> companyInfoVOList = new ArrayList<>();
-        companyInfoList.forEach(companyInfo -> companyInfoVOList.add(CompanyInfoVO.assemble(companyInfo)));
+        companyInfoList.forEach(companyInfo -> {
+            //imgUrl拼装
+            companyInfo.setImg(imgUrlPrefix + companyInfo.getImg());
+            companyInfoVOList.add(CompanyInfoVO.assemble(companyInfo));
+        });
         HashMap<String, Object> result = new HashMap<>(16);
         result.put("total", objects.getTotal());
         result.put("rows", companyInfoVOList);
